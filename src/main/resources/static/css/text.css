@@ -1,0 +1,18 @@
+h1 {
+    font-size: 6vw;
+}
+
+.standardText {
+    font-size: 2vw;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.btn-xl {
+    padding: 30px 40px;
+    font-size: 40px;
+    border-radius: 50px;
+}
