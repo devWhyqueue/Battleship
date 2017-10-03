@@ -16,3 +16,12 @@ h1 {
     font-size: 40px;
     border-radius: 50px;
 }
+
+.btn-space-right {
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+.btn-space-bottom {
+    margin-bottom: 30px;
+}

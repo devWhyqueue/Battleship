@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 
 	<name>Battleship</name>
-	<description>The ultimative game experience</description>
+    <description>The ultimate game experience</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
