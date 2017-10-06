@@ -1,4 +1,4 @@
-package de.queisler.battleship.config;
+package de.queisler.battleship.backend.web.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -25,7 +25,7 @@ public class WebConfig extends WebMvcConfigurerAdapter
 		registry.addViewController("/").setViewName("welcome");
 		registry.addViewController("/welcome").setViewName("welcome");
 		registry.addViewController("/lobby").setViewName("lobby");
-        registry.addViewController("/register").setViewName("register");
-        //		registry.addViewController("/login").setViewName("login");
+		registry.addViewController("/register");
+		registry.addViewController("/registrationSuccess").setViewName("registrationSuccess");
 	}
 }

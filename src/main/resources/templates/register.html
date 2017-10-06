@@ -1,50 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/xhtml"
->
+	xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8"></meta>
-    <title>Battleship</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<meta charset="UTF-8"></meta>
+<title>Battleship</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 
-    <!-- Bootstrap -->
-    <link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"
-          rel="stylesheet" media="screen"></link>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"></link>
-    <link rel="stylesheet" href="/css/background.css"></link>
-    <link rel="stylesheet" href="/css/text.css"></link>
+<!-- Bootstrap -->
+<link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"
+	rel="stylesheet" media="screen"></link>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"></link>
+<link rel="stylesheet" href="/css/background.css"></link>
+<link rel="stylesheet" href="/css/text.css"></link>
 </head>
 
 <body>
-<script src="http://code.jquery.com/jquery.js"></script>
-<script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
 
-<div class="ocean">
-    <div class="wave"></div>
-    <div class="wave"></div>
-</div>
+	<div class="ocean">
+		<div class="wave"></div>
+		<div class="wave"></div>
+	</div>
 
-<div class="h">
-    <h1 class="text-center">Get on board, landlubber!</h1>
-</div>
+	<div class="h">
+		<h1 class="text-center">Get on board, landlubber!</h1>
+	</div>
 
-<div style="width: 25vw;" class="col-lg-1 col-centered">
-    <div class="standardText">
-        <form th:action="@{/register}" method="post">
-            <div class="form-group form-group-lg">
-                <label for="username">Username</label> <input type="text"
-                                                              class="form-control" id="username"
-                                                              placeholder="Enter Username"></input>
-            </div>
-            <div class="form-group form-group-lg">
-                <label for="password">Password</label> <input type="password"
-                                                              class="form-control" id="password"
-                                                              placeholder="Enter Password"></input>
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg">Register</button>
-        </form>
-    </div>
-</div>
+	<div style="width: 25vw;" class="col-lg-1 col-centered">
+		<div class="standardText">
+			<form action="/register" th:object="${user}" method="POST" enctype="utf8">
+				<div class="form-group form-group-lg">
+					<label for="username">Username</label>
+					<input th:field="*{username}" type="text" class="form-control"
+						id="username" placeholder="Enter Username"></input>
+					<p th:each="error: ${#fields.errors('username')}"
+						th:text="${error}">Validation error</p>
+				</div>
+				<div class="form-group form-group-lg">
+					<label for="password">Password</label>
+					<input th:field="*{password}" type="password" class="form-control"
+						id="password" placeholder="Enter Password"></input>
+					<p th:each="error : ${#fields.errors('password')}"
+						th:text="${error}">Validation error</p>
+				</div>
+				<button type="submit" class="btn btn-primary btn-lg">Register</button>
+			</form>
+		</div>
+	</div>
 </body>
 </html>
