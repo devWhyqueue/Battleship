@@ -1,19 +1,16 @@
 package de.queisler.battleship.businessLogic;
 
 import de.queisler.battleship.businessLogic.enums.AttackResult;
-import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidShipException;
-import javafx.geometry.Pos;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Fleet {
-    private Set<Ship> ships;
+    private List<Ship> ships;
 
     public Fleet() {
-        this.ships = new HashSet<>();
+        this.ships = new ArrayList<>();
     }
 
     public void addShip(Ship ship) throws InvalidShipException {
@@ -35,16 +32,46 @@ public class Fleet {
         }
     }
 
+    public void changeShipPostion(Ship ship, Position newPosition) throws InvalidShipException {
+        int i = ships.indexOf(ship);
+        if (i != -1) {
+            ship.setPosition(newPosition);
+        } else {
+            throw new InvalidShipException("Das angegebene Schiff befindet sich nicht in der Flotte!");
+        }
+    }
+
+    public void removeShip(Ship ship) throws InvalidShipException {
+        int i = ships.indexOf(ship);
+        if (i != -1) {
+            ships.remove(ship);
+        } else {
+            throw new InvalidShipException("Das angegebene Schiff befindet sich nicht in der Flotte!");
+        }
+    }
+
     public boolean isFleetReady(){
         return ships.size() == 5;
     }
 
     public AttackResult attackFleet(Point point){
         for(Ship s : ships){
-           if(s.getPosition().getPoints().contains(point)){
-                s.getPosition().getPoints().indexOf(point)
-           }
+            int i = s.getPosition().getPoints().indexOf(point);
+            if (i != -1) {
+                s.getPosition().getPoints().get(i).setHit(true);
 
+                if (s.isAlive()) return AttackResult.HIT;
+                else if (!s.isAlive() && isAlive()) return AttackResult.SUNK;
+                else return AttackResult.LOST;
+            }
         }
+        return AttackResult.MISS;
+    }
+
+    public boolean isAlive() {
+        for (Ship s : ships) {
+            if (s.isAlive()) return true;
+        }
+        return false;
     }
 }

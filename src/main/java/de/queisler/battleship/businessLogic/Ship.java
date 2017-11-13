@@ -1,22 +1,20 @@
 package de.queisler.battleship.businessLogic;
 
-import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.enums.ShipType;
-import de.queisler.battleship.businessLogic.enums.Status;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @EqualsAndHashCode(of = {"shipType"})
 public class Ship {
     private ShipType shipType;
+    @Setter
     private Position position;
-    private Status status;
 
     public Ship(ShipType shipType, Position position) {
         this.shipType = shipType;
         this.position = position;
-        this.status = Status.ALIVE;
     }
 
     public int getSize(){

@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"row", "column"})
 public class Point {
     private int row;
     private int column;
@@ -33,9 +33,6 @@ public class Point {
         boolean isLeft = row == point.getRow() && point.getColumn() == (column - 1);
         boolean isRight = row == point.getRow() && point.getColumn() == (column + 1);
 
-        if(isAbove || isBelow || isLeft || isRight)
-            return true;
-        else
-            return false;
+        return isAbove || isBelow || isLeft || isRight;
     }
 }
