@@ -1,5 +1,5 @@
 package de.queisler.battleship.businessLogic.enums;
 
 public enum AttackResult {
-    HIT, MISS, SUNK, LOST, ERROR
+    HIT, MISS, SUNK, LOST
 }

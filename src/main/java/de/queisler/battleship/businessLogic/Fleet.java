@@ -50,7 +50,7 @@ public class Fleet {
         }
     }
 
-    public boolean isFleetReady(){
+    public boolean isReady() {
         return ships.size() == 5;
     }
 

@@ -13,11 +13,7 @@ public class Player {
         this.fleet = new Fleet();
     }
 
-    public AttackResult announceAttackResult(Point position) {
-        return AttackResult.LOST;
+    public AttackResult announceAttackResult(Point point) {
+        return getFleet().attackFleet(point);
     }
-
-    public boolean isPlayerReady() {
-        return true;
     }
-}
