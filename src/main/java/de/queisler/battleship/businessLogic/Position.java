@@ -2,6 +2,7 @@ package de.queisler.battleship.businessLogic;
 
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
+import de.queisler.battleship.businessLogic.exceptions.InvalidPositionException;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 public class Position {
     private List<Point> points;
 
-    public Position(Point startPoint, Alignment alignment, int length) throws InvalidPointException {
+    public Position(Point startPoint, Alignment alignment, int length) throws InvalidPositionException {
         this.points = new ArrayList<>();
 
         if (alignment == Alignment.HORIZONTAL) {
@@ -22,7 +23,7 @@ public class Position {
                     points.add(new Point(startPoint.getRow(), startPoint.getColumn() + i));
 
             } catch (InvalidPointException e) {
-                throw new InvalidPointException("Diese Position beinhaltet ungültige Punkte!");
+                throw new InvalidPositionException("Diese Position beinhaltet ungültige Punkte!");
             }
         } else {
             try {
@@ -32,7 +33,7 @@ public class Position {
                     points.add(new Point(startPoint.getRow() + i, startPoint.getColumn()));
 
             } catch (InvalidPointException e) {
-                throw new InvalidPointException("Diese Position beinhaltet ungültige Punkte!");
+                throw new InvalidPositionException("Diese Position beinhaltet ungültige Punkte!");
             }
         }
     }

@@ -3,8 +3,9 @@ package de.queisler.battleship;
 import de.queisler.battleship.businessLogic.*;
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.enums.ShipType;
+import de.queisler.battleship.businessLogic.exceptions.FleetException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
-import de.queisler.battleship.businessLogic.exceptions.InvalidShipException;
+import de.queisler.battleship.businessLogic.exceptions.InvalidPositionException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class ShipPlacementTest {
 
 
     @Test
-    public void addShipToFleet() throws InvalidShipException, InvalidPointException {
+    public void addShipToFleet() throws FleetException, InvalidPositionException, InvalidPointException {
         Player player1 = new Player("Max");
         Ship ship1 = new Ship(ShipType.BATTLESHIP, new Point(1, 1), Alignment.HORIZONTAL);
 
@@ -36,7 +37,8 @@ public class ShipPlacementTest {
     }
 
     @Test
-    public void addShipWithInvalidStartPointShouldThrowException() throws InvalidShipException, InvalidPointException {
+    public void addShipWithInvalidStartPointShouldThrowException() throws FleetException, InvalidPositionException,
+            InvalidPointException {
         expectedEx.expect(InvalidPointException.class);
         expectedEx.expectMessage("Der Punkt ist nicht gültig!");
 
@@ -47,8 +49,9 @@ public class ShipPlacementTest {
     }
 
     @Test
-    public void addShipWithInvalidPositionShouldThrowException() throws InvalidShipException, InvalidPointException {
-        expectedEx.expect(InvalidPointException.class);
+    public void addShipWithInvalidPositionShouldThrowException() throws FleetException, InvalidPointException,
+            InvalidPositionException {
+        expectedEx.expect(InvalidPositionException.class);
         expectedEx.expectMessage("Diese Position beinhaltet ungültige Punkte!");
 
         Player player1 = new Player("Max");
@@ -58,8 +61,9 @@ public class ShipPlacementTest {
     }
 
     @Test()
-    public void addSameShipTwiceToFleetShouldThrowException() throws InvalidShipException, InvalidPointException {
-        expectedEx.expect(InvalidShipException.class);
+    public void addSameShipTwiceToFleetShouldThrowException() throws FleetException, InvalidPointException,
+            InvalidPositionException {
+        expectedEx.expect(FleetException.class);
         expectedEx.expectMessage("Ein Schiff desselben Typs ist bereits in der Flotte!");
 
         Player player1 = new Player("Max");
@@ -73,8 +77,9 @@ public class ShipPlacementTest {
     }
 
     @Test()
-    public void addTooManyShipsToFleetShouldThrowException() throws InvalidShipException, InvalidPointException {
-        expectedEx.expect(InvalidShipException.class);
+    public void addTooManyShipsToFleetShouldThrowException() throws FleetException, InvalidPointException,
+            InvalidPositionException {
+        expectedEx.expect(FleetException.class);
         expectedEx.expectMessage("Die Flotte ist bereits voll besetzt!");
 
         Player player1 = new Player("Max");
@@ -101,8 +106,9 @@ public class ShipPlacementTest {
     }
 
     @Test()
-    public void addOverlappingShipsShouldThrowException() throws InvalidShipException, InvalidPointException {
-        expectedEx.expect(InvalidShipException.class);
+    public void addOverlappingShipsShouldThrowException() throws FleetException, InvalidPointException,
+            InvalidPositionException {
+        expectedEx.expect(FleetException.class);
         expectedEx.expectMessage("Das Schiff überschneidet sich mit einem anderen in der Flotte!");
 
         Player player1 = new Player("Max");
@@ -117,8 +123,8 @@ public class ShipPlacementTest {
     }
 
     @Test()
-    public void addTouchingShipsShouldThrowException() throws InvalidShipException, InvalidPointException {
-        expectedEx.expect(InvalidShipException.class);
+    public void addTouchingShipsShouldThrowException() throws FleetException, InvalidPointException, InvalidPositionException {
+        expectedEx.expect(FleetException.class);
         expectedEx.expectMessage("Das Schiff berührt ein anderes in der Flotte!");
 
         Player player1 = new Player("Max");
@@ -133,7 +139,7 @@ public class ShipPlacementTest {
     }
 
     @Test()
-    public void removeShip() throws InvalidShipException, InvalidPointException {
+    public void removeShip() throws FleetException, InvalidPointException, InvalidPositionException {
         Player player1 = new Player("Max");
         Ship ship1 = new Ship(ShipType.BATTLESHIP, new Point(1, 1), Alignment.HORIZONTAL);
 
@@ -147,7 +153,7 @@ public class ShipPlacementTest {
     }
 
     @Test()
-    public void changePositionOfShip() throws InvalidShipException, InvalidPointException {
+    public void changePositionOfShip() throws FleetException, InvalidPointException, InvalidPositionException {
         Player player1 = new Player("Max");
         Ship ship1 = new Ship(ShipType.BATTLESHIP, new Point(1, 1), Alignment.HORIZONTAL);
 
@@ -162,7 +168,7 @@ public class ShipPlacementTest {
     }
 
     @Test()
-    public void checkIfFleetIsReady() throws InvalidShipException, InvalidPointException {
+    public void checkIfFleetIsReady() throws FleetException, InvalidPointException, InvalidPositionException {
         Player player1 = new Player("Max");
         Ship ship1 = new Ship(ShipType.BATTLESHIP, new Point(1, 1), Alignment.HORIZONTAL);
         Ship ship2 = new Ship(ShipType.CARRIER, new Point(3, 1), Alignment.HORIZONTAL);

@@ -2,8 +2,9 @@ package de.queisler.battleship.businessLogic;
 
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.enums.AttackResult;
+import de.queisler.battleship.businessLogic.exceptions.FleetException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
-import de.queisler.battleship.businessLogic.exceptions.InvalidShipException;
+import de.queisler.battleship.businessLogic.exceptions.InvalidPositionException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,31 +16,30 @@ public class Fleet {
         this.ships = new ArrayList<>();
     }
 
-    public void addShip(Ship ship) throws InvalidShipException {
+    public void addShip(Ship ship) throws FleetException {
         validateShip(ship);
         ships.add(ship);
     }
 
-    private void validateShip(Ship ship) throws InvalidShipException {
-        if (ships.size() > 4) throw new InvalidShipException("Die Flotte ist bereits voll besetzt!");
-        else if (ships.contains(ship))
-            throw new InvalidShipException("Ein Schiff desselben Typs ist bereits in der Flotte!");
+    private void validateShip(Ship ship) throws FleetException {
+        if (ships.size() > 4) throw new FleetException("Die Flotte ist bereits voll besetzt!");
+        else if (ships.contains(ship)) throw new FleetException("Ein Schiff desselben Typs ist bereits in der Flotte!");
         else {
             for (Ship s : ships) {
                 if (s.getPosition().isOverlapping(ship.getPosition()))
-                    throw new InvalidShipException("Das Schiff überschneidet sich mit einem anderen in der Flotte!");
+                    throw new FleetException("Das Schiff überschneidet sich mit einem anderen in der Flotte!");
                 if (s.getPosition().isNextTo(ship.getPosition()))
-                    throw new InvalidShipException("Das Schiff berührt ein anderes in der Flotte!");
+                    throw new FleetException("Das Schiff berührt ein anderes in der Flotte!");
             }
         }
     }
 
-    public void removeShip(Ship ship) throws InvalidShipException {
+    public void removeShip(Ship ship) throws FleetException {
         int i = ships.indexOf(ship);
         if (i != -1) {
             ships.remove(ship);
         } else {
-            throw new InvalidShipException("Das angegebene Schiff befindet sich nicht in der Flotte!");
+            throw new FleetException("Das angegebene Schiff befindet sich nicht in der Flotte!");
         }
     }
 
@@ -47,13 +47,13 @@ public class Fleet {
         return ships.contains(ship);
     }
 
-    public void changeShipPostion(Ship ship, Point startPoint, Alignment alignment) throws InvalidShipException,
-            InvalidPointException {
+    public void changeShipPostion(Ship ship, Point startPoint, Alignment alignment) throws FleetException,
+            InvalidPositionException {
         int i = ships.indexOf(ship);
         if (i != -1) {
             ship.setPosition(new Position(startPoint, alignment, ship.getSize()));
         } else {
-            throw new InvalidShipException("Das angegebene Schiff befindet sich nicht in der Flotte!");
+            throw new FleetException("Das angegebene Schiff befindet sich nicht in der Flotte!");
         }
     }
 
