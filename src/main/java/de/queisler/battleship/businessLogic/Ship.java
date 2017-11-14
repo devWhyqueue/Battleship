@@ -1,6 +1,8 @@
 package de.queisler.battleship.businessLogic;
 
+import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.enums.ShipType;
+import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,9 +14,9 @@ public class Ship {
     @Setter
     private Position position;
 
-    public Ship(ShipType shipType, Position position) {
+    public Ship(ShipType shipType, Point startPoint, Alignment alignment) throws InvalidPointException {
         this.shipType = shipType;
-        this.position = position;
+        this.position = new Position(startPoint, alignment, getSize());
     }
 
     public int getSize(){
@@ -32,12 +34,5 @@ public class Ship {
             default:
                 return 0; // FEHLER
         }
-    }
-
-    public boolean isAlive(){
-        for(Point p : position.getPoints()) {
-            if (!p.isHit()) return true;
-        }
-        return false;
     }
 }

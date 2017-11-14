@@ -1,9 +1,10 @@
 package de.queisler.battleship.businessLogic;
 
-import de.queisler.battleship.businessLogic.enums.AttackResult;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
+@EqualsAndHashCode(of = {"name"})
 public class Player {
     private String name;
     private Fleet fleet;
@@ -11,9 +12,5 @@ public class Player {
     public Player(String name) {
         this.name = name;
         this.fleet = new Fleet();
-    }
-
-    public AttackResult announceAttackResult(Point point) {
-        return getFleet().attackFleet(point);
     }
     }

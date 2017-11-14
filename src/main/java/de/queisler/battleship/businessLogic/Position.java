@@ -2,27 +2,42 @@ package de.queisler.battleship.businessLogic;
 
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
-import lombok.Getter;
+import lombok.EqualsAndHashCode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Getter
+@EqualsAndHashCode
 public class Position {
     private List<Point> points;
 
     public Position(Point startPoint, Alignment alignment, int length) throws InvalidPointException {
         this.points = new ArrayList<>();
 
-        for(int i = 0; i < length; i++){
-            if(alignment == Alignment.HORIZONTAL){
-                points.add(new Point(startPoint.getRow(), startPoint.getColumn() + i));
-            }else{
-                points.add(new Point(startPoint.getRow() + i, startPoint.getColumn()));
+        if (alignment == Alignment.HORIZONTAL) {
+            try {
+                new Point(startPoint.getRow(), startPoint.getColumn() + length); // Grenzentest
+
+                for (int i = 0; i < length; i++)
+                    points.add(new Point(startPoint.getRow(), startPoint.getColumn() + i));
+
+            } catch (InvalidPointException e) {
+                throw new InvalidPointException("Diese Position beinhaltet ungültige Punkte!");
+            }
+        } else {
+            try {
+                new Point(startPoint.getRow() + length, startPoint.getColumn()); // Grenzentest
+
+                for (int i = 0; i < length; i++)
+                    points.add(new Point(startPoint.getRow() + i, startPoint.getColumn()));
+
+            } catch (InvalidPointException e) {
+                throw new InvalidPointException("Diese Position beinhaltet ungültige Punkte!");
             }
         }
     }
 
-    public void markPoint(Point point) throws InvalidPointException{
+    public void markPointAsHit(Point point) throws InvalidPointException {
         if(points.contains(point)){
             int i = points.indexOf(point);
             points.get(i).setHit(true);
@@ -33,7 +48,7 @@ public class Position {
 
     public boolean isOverlapping(Position position){
         for(Point p : points){
-            if(position.getPoints().contains(p))
+            if (position.points.contains(p))
                 return true;
         }
         return false;
@@ -41,11 +56,22 @@ public class Position {
 
     public boolean isNextTo(Position position){
         for(Point p : points){
-            for(Point otherP : position.getPoints()){
+            for (Point otherP : position.points) {
                 if(p.isNextTo(otherP))
                     return true;
             }
         }
         return false;
+    }
+
+    public boolean containsPoint(Point point) {
+        return points.contains(point);
+    }
+
+    public boolean allHit() {
+        for (Point p : points) {
+            if (!p.isHit()) return false;
+        }
+        return true;
     }
 }
