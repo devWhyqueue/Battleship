@@ -1,4 +1,4 @@
-package de.queisler.battleship.businessLogic;
+package de.queisler.battleship.businessLogic.model;
 
 public class HitMap
 {

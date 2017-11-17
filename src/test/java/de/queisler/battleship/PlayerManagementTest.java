@@ -1,8 +1,9 @@
 package de.queisler.battleship;
 
-import de.queisler.battleship.businessLogic.Game;
-import de.queisler.battleship.businessLogic.Player;
 import de.queisler.battleship.businessLogic.exceptions.GameException;
+import de.queisler.battleship.businessLogic.model.Game;
+import de.queisler.battleship.businessLogic.model.Player;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

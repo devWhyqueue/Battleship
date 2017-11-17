@@ -1,4 +1,4 @@
-package de.queisler.battleship.businessLogic;
+package de.queisler.battleship.businessLogic.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

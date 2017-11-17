@@ -1,4 +1,4 @@
-package de.queisler.battleship.businessLogic;
+package de.queisler.battleship.businessLogic.model;
 
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.enums.ShipType;

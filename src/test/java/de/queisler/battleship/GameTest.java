@@ -7,10 +7,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.queisler.battleship.businessLogic.Game;
-import de.queisler.battleship.businessLogic.Player;
-import de.queisler.battleship.businessLogic.Point;
-import de.queisler.battleship.businessLogic.Ship;
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.enums.AttackResult;
 import de.queisler.battleship.businessLogic.enums.ShipType;
@@ -18,6 +14,10 @@ import de.queisler.battleship.businessLogic.exceptions.FleetException;
 import de.queisler.battleship.businessLogic.exceptions.GameException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPositionException;
+import de.queisler.battleship.businessLogic.model.Game;
+import de.queisler.battleship.businessLogic.model.Player;
+import de.queisler.battleship.businessLogic.model.Point;
+import de.queisler.battleship.businessLogic.model.Ship;
 
 public class GameTest
 {
