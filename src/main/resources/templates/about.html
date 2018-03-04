@@ -10,7 +10,6 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Background animation -->
     <link rel="stylesheet" href="./css/background.css">
-    </link>
     <!-- Favicon -->
     <link rel="icon" href="./img/favicon.ico">
     <title>Battleship</title>
@@ -33,7 +32,6 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="./home.html">Home <span class="sr-only">(current)</span></a>
-                    <!-- SET DYNAMIC LINK (VISITOR/USER) -->
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./lobby.html">Lobby</a>
@@ -43,62 +41,24 @@
                     <a class="nav-link" href="./profile.html">Profile</a>
                     <!-- SET PROPER LINK -->
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="./about.html">About</a>
                 </li>
             </ul>
+            <button class="btn btn-outline-danger btn-lg my-2 my-sm-0 invisible" type="submit">Logout</button>
+            <!-- DYNAMICALLY ENABLE/DISABLE IT -->
         </div>
     </nav>
 </header>
-<main style="height:80%;" role="main" class="container">
-    <div style="height:80%;" class="row align-items-center">
+<main style="height:75%;" role="main" class="container mt-5">
+    <div style="height:75%;" class="row">
         <div class="mx-auto">
-            <h1 class="text-center mb-4">Come on board!</h1>
-            <div class="row centered-form">
-                <div class="col">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <form role="form">
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" name="first_name" id="first_name"
-                                                   class="form-control input-sm" placeholder="First Name" required
-                                                   autofocus>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" name="last_name" id="last_name"
-                                                   class="form-control input-sm" placeholder="Last Name" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" name="email" id="email" class="form-control input-sm"
-                                           placeholder="Email Address" required>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="password" name="password" id="password"
-                                                   class="form-control input-sm" placeholder="Password" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="password" name="password_confirmation"
-                                                   id="password_confirmation" class="form-control input-sm"
-                                                   placeholder="Confirm Password" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input style="background: #015871;" type="submit" value="Register"
-                                       class="btn btn-info btn-block">
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            <div class="jumbotron">
+                <h1 class="display-3">About this project</h1>
+                <p class="lead">This project is completely open source and can be downloaded from the link below. Would
+                    be happy to welcome some new follower to my GitHub profile. :) </p>
+                <p><a class="btn btn-lg btn-success" href="https://github.com/devWhyqueue" role="button">Follow now</a>
+                </p>
             </div>
         </div>
     </div>

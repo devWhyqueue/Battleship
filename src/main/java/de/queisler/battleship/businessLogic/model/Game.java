@@ -1,9 +1,10 @@
 package de.queisler.battleship.businessLogic.model;
 
-import java.util.HashMap;
-
 import de.queisler.battleship.businessLogic.enums.AttackResult;
+import de.queisler.battleship.businessLogic.enums.PointStatus;
 import de.queisler.battleship.businessLogic.exceptions.GameException;
+
+import java.util.HashMap;
 
 public class Game
 {
@@ -52,19 +53,17 @@ public class Game
 
 	public AttackResult attack(Player attacker, Point point) throws GameException
 	{
-		if (isReady() && getWinner() == null)
+		if (isReady() && determineWinner() == null)
 		{
 			for (java.util.Map.Entry<Player, HitMap> entry : players.entrySet())
 			{
 				if (!entry.getKey().equals(attacker))
 				{
-					if (entry.getValue().getStatus(point) == 0)
+					if (entry.getValue().getStatus(point) == PointStatus.UNKNOWN)
 					{
-						AttackResult result = entry.getKey().getFleet().getAttackResult(point);
-						if (result == AttackResult.MISS)
-							entry.getValue().setStatus(point, 1);
-						else
-							entry.getValue().setStatus(point, 2);
+						AttackResult result = entry.getKey().getFleet().attack(point);
+						if (result == AttackResult.MISS) entry.getValue().setStatus(point, PointStatus.WATER);
+						else entry.getValue().setStatus(point, PointStatus.SHIP);
 
 						return result;
 					}
@@ -74,7 +73,7 @@ public class Game
 		}
 		else
 		{
-			if (getWinner() == null)
+			if (determineWinner() == null)
 				throw new GameException("Die Spieler sind noch nicht bereit, um zu attackieren!");
 			else
 				throw new GameException("Das Spiel ist bereits zuende!");
@@ -82,7 +81,7 @@ public class Game
 		throw new GameException("Ein unbekannter Fehler ist aufgetreten!");
 	}
 
-	public Player getWinner()
+	public Player determineWinner()
 	{
 		Player winner = null;
 		for (java.util.Map.Entry<Player, HitMap> entry : players.entrySet())

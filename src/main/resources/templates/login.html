@@ -1,50 +1,110 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-<meta charset="UTF-8"></meta>
-<title>Battleship</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<!doctype html>
+<html lang="en">
 
-<!-- Bootstrap -->
-<link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"
-	rel="stylesheet" media="screen"></link>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"></link>
-<link rel="stylesheet" href="/css/background.css"></link>
-<link rel="stylesheet" href="/css/text.css"></link>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Background animation -->
+    <link rel="stylesheet" href="./css/background.css">
+    </link>
+    <!-- Favicon -->
+    <link rel="icon" href="./img/favicon.ico">
+    <title>Battleship</title>
 </head>
 
 <body>
-	<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
-
-	<div class="ocean">
-		<div class="wave"></div>
-		<div class="wave"></div>
-	</div>
-
-	<div class="h">
-		<h1 class="text-center">Welcome back, sailor!</h1>
-	</div>
-
-	<div style="width: 25vw;" class="col-lg-1 col-centered">
-		<div class="standardText">
-			<div th:if="${param.error}">Invalid username and password.</div>
-			<div th:if="${param.logout}">You have been logged out.</div>
-			<form th:action="@{/login}" method="post">
-				<div class="form-group form-group-lg">
-					<label for="username">Username</label> <input type="text"
-						class="form-control" name="username" placeholder="Enter Username"></input>
-				</div>
-				<div class="form-group form-group-lg">
-					<label for="password">Password</label> <input type="password"
-						class="form-control" name="password" placeholder="Enter Password"></input>
-				</div>
-				<button type="submit" class="btn btn-primary btn-lg">Login</button>
-			</form>
-		</div>
-	</div>
+<!-- Background animation -->
+<div class="ocean">
+    <div class="wave"></div>
+    <div class="wave"></div>
+</div>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Battleship</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./home.html">Home</a>
+                    <!-- SET DYNAMIC LINK (VISITOR/USER) -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./lobby.html">Lobby</a>
+                    <!-- SET PROPER LINK -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./profile.html">Profile</a>
+                    <!-- SET PROPER LINK -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./about.html">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<main style="height:80%;" role="main" class="container">
+    <div style="height:80%;" class="row align-items-center">
+        <div class="mx-auto">
+            <h1 class="text-center mb-4">Welcome back, sailor!</h1>
+            <div class="col-8 mx-auto">
+                <form class="form-signin">
+                    <label for="inputUsername" class="sr-only">Username</label>
+                    <label class="text-danger invisible"><b>Wrong username or password!</b></label>
+                    <!-- DYNAMICALLY ENABLE/DISABLE IT -->
+                    <input type="text" id="inputUsername" class="form-control" placeholder="Username" required
+                           autofocus>
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <button style="background: #015871;" class="btn btn-lg btn-primary btn-block mt-3" type="submit">
+                        Sign in
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<!--Footer-->
+<footer class="page-footer blue center-on-small-only">
+    <!--Footer Links-->
+    <div class="container-fluid">
+        <div class="row">
+            <!--First column-->
+            <div class="col-md-6">
+                <h5 class="title">Whyqueue Games</h5>
+                <p>This website is open source. You can download all my projects from Github.</p>
+            </div>
+            <!--/.First column-->
+        </div>
+    </div>
+    <!--/.Footer Links-->
+    <!--Copyright-->
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            © 2018 Copyright: <a href="https://github.com/devWhyqueue"> devWhyqueue </a>
+        </div>
+    </div>
+    <!--/.Copyright-->
+</footer>
+<!--/.Footer-->
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

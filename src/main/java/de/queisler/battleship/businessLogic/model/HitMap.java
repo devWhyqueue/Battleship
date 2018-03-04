@@ -1,20 +1,22 @@
 package de.queisler.battleship.businessLogic.model;
 
+import de.queisler.battleship.businessLogic.enums.PointStatus;
+
 public class HitMap
 {
-	private int[][] hitMap; // 0: unknown, 1: water, 2: ship
+	private PointStatus[][] hitMap;
 
 	public HitMap()
 	{
-		hitMap = new int[10][10];
+		hitMap = new PointStatus[10][10];
 	}
 
-	public void setStatus(Point point, int status)
+	public void setStatus(Point point, PointStatus status)
 	{
 		hitMap[point.getRow() - 1][point.getColumn() - 1] = status;
 	}
 
-	public int getStatus(Point point)
+	public PointStatus getStatus(Point point)
 	{
 		return hitMap[point.getRow() - 1][point.getColumn() - 1];
 	}

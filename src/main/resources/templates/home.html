@@ -31,9 +31,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="./home.html">Home <span class="sr-only">(current)</span></a>
-                    <!-- SET DYNAMIC LINK (VISITOR/USER) -->
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./lobby.html">Lobby</a>
@@ -47,62 +46,29 @@
                     <a class="nav-link" href="./about.html">About</a>
                 </li>
             </ul>
+            <button class="btn btn-outline-danger btn-lg my-2 my-sm-0 invisible" type="submit">Logout</button>
+            <!-- DYNAMICALLY ENABLE/DISABLE IT -->
         </div>
     </nav>
 </header>
+
 <main style="height:80%;" role="main" class="container">
     <div style="height:80%;" class="row align-items-center">
         <div class="mx-auto">
-            <h1 class="text-center mb-4">Come on board!</h1>
-            <div class="row centered-form">
-                <div class="col">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <form role="form">
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" name="first_name" id="first_name"
-                                                   class="form-control input-sm" placeholder="First Name" required
-                                                   autofocus>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" name="last_name" id="last_name"
-                                                   class="form-control input-sm" placeholder="Last Name" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" name="email" id="email" class="form-control input-sm"
-                                           placeholder="Email Address" required>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="password" name="password" id="password"
-                                                   class="form-control input-sm" placeholder="Password" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="password" name="password_confirmation"
-                                                   id="password_confirmation" class="form-control input-sm"
-                                                   placeholder="Confirm Password" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input style="background: #015871;" type="submit" value="Register"
-                                       class="btn btn-info btn-block">
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            <h1 class="text-center mb-5">Welcome to Battleship!</h1>
+            <div class="col-8 mx-auto">
+                <a style="background: #015871;" href="./login.html" class="btn btn-primary btn-block mb-3"
+                   role="button">
+                    <h2>Login</h2>
+                </a>
+                <a style="background: #015871;" href="./register.html" class="btn btn-primary btn-block" role="button">
+                    <h2>Register</h2>
+                </a>
             </div>
         </div>
     </div>
 </main>
+
 <!--Footer-->
 <footer class="page-footer blue center-on-small-only">
     <!--Footer Links-->

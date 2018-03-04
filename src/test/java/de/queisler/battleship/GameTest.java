@@ -1,12 +1,5 @@
 package de.queisler.battleship;
 
-import static junit.framework.TestCase.assertTrue;
-
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.enums.AttackResult;
 import de.queisler.battleship.businessLogic.enums.ShipType;
@@ -18,6 +11,12 @@ import de.queisler.battleship.businessLogic.model.Game;
 import de.queisler.battleship.businessLogic.model.Player;
 import de.queisler.battleship.businessLogic.model.Point;
 import de.queisler.battleship.businessLogic.model.Ship;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import static junit.framework.TestCase.assertTrue;
 
 public class GameTest
 {
@@ -98,9 +97,9 @@ public class GameTest
 					game.attack(player1, new Point(i, j));
 			}
 		}
-		assertTrue(game.getWinner() == null);
+		assertTrue(game.determineWinner() == null);
 		assertTrue(game.attack(player1, new Point(1, 1)).equals(AttackResult.LOST));
-		assertTrue(game.getWinner().equals(player1));
+		assertTrue(game.determineWinner().equals(player1));
 	}
 
 	@Test
@@ -128,7 +127,7 @@ public class GameTest
 			}
 		}
 		assertTrue(game.attack(player1, new Point(1, 1)).equals(AttackResult.LOST));
-		assertTrue(game.getWinner().equals(player1));
+		assertTrue(game.determineWinner().equals(player1));
 
 		game.attack(player1, new Point(10, 10));
 	}

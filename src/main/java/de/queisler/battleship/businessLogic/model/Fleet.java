@@ -1,13 +1,13 @@
 package de.queisler.battleship.businessLogic.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.enums.AttackResult;
 import de.queisler.battleship.businessLogic.exceptions.FleetException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPositionException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Fleet
 {
@@ -74,7 +74,7 @@ public class Fleet
 		}
 	}
 
-	public AttackResult getAttackResult(Point point)
+	public AttackResult attack(Point point)
 	{
 		for (Ship s : ships)
 		{
