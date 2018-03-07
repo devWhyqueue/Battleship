@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Background animation -->
+  <link rel="stylesheet" href="./css/background.css">
+  <!-- Favicon -->
+  <link rel="icon" href="./img/favicon.ico">
+  <title>Battleship</title>
+
+  <link rel="stylesheet" href="./css/gridstack.min.css" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.0/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+  <script type="text/javascript" src='./js/gridstack.all.js'></script>
+  <script type="text/javascript" src='./js/jQueryUI.min.js'></script>
+
+  <style type="text/css">
+    .grid-stack {
+      background: #d1f4ff;
+      height: 505px;
+    }
+
+    .grid-stack-item-content {
+      color: #2c3e50;
+      text-align: center;
+      background-color: #015871;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Battleship</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="./home.html">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./lobby.html">Lobby</a>
+            <!-- SET PROPER LINK -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./profile.html">Profile</a>
+            <!-- SET PROPER LINK -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./about.html">About</a>
+          </li>
+        </ul>
+        <button class="btn btn-outline-danger btn-lg my-2 my-sm-0 invisible" type="submit">Logout</button>
+        <!-- DYNAMICALLY ENABLE/DISABLE IT -->
+      </div>
+    </nav>
+  </header>
+
+  <main style="height:75%;" role="main" class="container mt-5">
+    <div style="height:75%;" class="row">
+      <div class="mx-auto col-10">
+        <h1>Place your ships...</h1>
+        <div class="grid-stack">
+          <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="5" data-gs-height="1" oncontextmenu="rotate(this);return false;">
+            <div class="grid-stack-item-content"></div>
+          </div>
+          <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="4" data-gs-height="1" oncontextmenu="rotate(this);return false;">
+            <div class="grid-stack-item-content"></div>
+          </div>
+          <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="3" data-gs-height="1" oncontextmenu="rotate(this);return false;">
+            <div class="grid-stack-item-content"></div>
+          </div>
+          <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="2" data-gs-height="1" oncontextmenu="rotate(this);return false;">
+            <div class="grid-stack-item-content"></div>
+          </div>
+          <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="1" data-gs-height="1" oncontextmenu="rotate(this);return false;">
+            <div class="grid-stack-item-content"></div>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn-primary" id="lock-in" onclick="saveGrid()">Lock in</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script type="text/javascript">
+    $(function() {
+      var options = {
+        float: true,
+        disableResize: true,
+        width: 10,
+        height: 10,
+        staticHeight: 10
+      };
+      $('.grid-stack').gridstack(options);
+    });
+
+    var serializedData;
+
+    function rotate(el) {
+      var grid = $('.grid-stack').data('gridstack');
+      var width = el.getAttribute("data-gs-width") - 0;
+      var height = el.getAttribute("data-gs-height") - 0;
+      grid.resize(el, height, width);
+    }
+
+    function loadGrid() {
+      var grid = $('.grid-stack').data('gridstack');
+      grid.removeAll();
+      var items = GridStackUI.Utils.sort(this.serializedData);
+      _.each(items, function(node) {
+        grid.addWidget($('<div><div class="grid-stack-item-content" /><div/>'),
+          node.x, node.y, node.width, node.height);
+      }, this);
+      return false;
+    }
+
+    function saveGrid() {
+      this.serializedData = _.map($('.grid-stack > .grid-stack-item:visible'), function(el) {
+        el = $(el);
+        var node = el.data('_gridstack_node');
+        return {
+          x: node.x,
+          y: node.y,
+          width: node.width,
+          height: node.height
+        };
+      }, this);
+      var grid = $('.grid-stack').data('gridstack');
+      grid.setStatic(true);
+      var but = document.getElementById("lock-in");
+      but.firstChild.data = "Waiting for opponent...";
+      but.disabled = true;
+      $('#saved-data').val(JSON.stringify(this.serializedData, null, '    '));
+      return false;
+    }
+  </script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

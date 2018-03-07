@@ -2,141 +2,125 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!-- Background animation -->
-    <link rel="stylesheet" href="./css/background.css">
-    </link>
-    <!-- Favicon -->
-    <link rel="icon" href="./img/favicon.ico">
-    <title>Battleship</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Background animation -->
+  <link rel="stylesheet" href="./css/background.css">
+  </link>
+  <!-- Favicon -->
+  <link rel="icon" href="./img/favicon.ico">
+  <title>Battleship</title>
 </head>
 
 <body>
-<!-- Background animation -->
-<div class="ocean">
+  <!-- Background animation -->
+  <div class="ocean">
     <div class="wave"></div>
     <div class="wave"></div>
-</div>
-<header>
+  </div>
+  <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Battleship</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="#">Battleship</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="./home.html">Home <span class="sr-only">(current)</span></a>
-                    <!-- SET DYNAMIC LINK (VISITOR/USER) -->
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./lobby.html">Lobby</a>
-                    <!-- SET PROPER LINK -->
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./profile.html">Profile</a>
-                    <!-- SET PROPER LINK -->
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./about.html">About</a>
-                </li>
-            </ul>
-        </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="./home.html">Home <span class="sr-only">(current)</span></a>
+            <!-- SET DYNAMIC LINK (VISITOR/USER) -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./lobby.html">Lobby</a>
+            <!-- SET PROPER LINK -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./profile.html">Profile</a>
+            <!-- SET PROPER LINK -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./about.html">About</a>
+          </li>
+        </ul>
+      </div>
     </nav>
-</header>
-<main style="height:80%;" role="main" class="container">
+  </header>
+  <main style="height:80%;" role="main" class="container">
     <div style="height:80%;" class="row align-items-center">
-        <div class="mx-auto">
-            <h1 class="text-center mb-4">Come on board!</h1>
-            <div class="row centered-form">
-                <div class="col">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <form role="form">
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" name="first_name" id="first_name"
-                                                   class="form-control input-sm" placeholder="First Name" required
-                                                   autofocus>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" name="last_name" id="last_name"
-                                                   class="form-control input-sm" placeholder="Last Name" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" name="email" id="email" class="form-control input-sm"
-                                           placeholder="Email Address" required>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="password" name="password" id="password"
-                                                   class="form-control input-sm" placeholder="Password" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="password" name="password_confirmation"
-                                                   id="password_confirmation" class="form-control input-sm"
-                                                   placeholder="Confirm Password" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input style="background: #015871;" type="submit" value="Register"
-                                       class="btn btn-info btn-block">
-                            </form>
-                        </div>
+      <div class="mx-auto">
+        <h1 class="text-center mb-4">Come on board!</h1>
+        <div class="row centered-form">
+          <div class="col">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form role="form">
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                      <div class="form-group">
+                        <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name" required autofocus>
+                      </div>
                     </div>
-                </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                      <div class="form-group">
+                        <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="username" id="username" class="form-control input-sm" placeholder="Username" required>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                      <div class="form-group">
+                        <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password" required>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                      <div class="form-group">
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password" required>
+                      </div>
+                    </div>
+                  </div>
+                  <input style="background: #015871;" type="submit" value="Register" class="btn btn-info btn-block">
+                </form>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</main>
-<!--Footer-->
-<footer class="page-footer blue center-on-small-only">
+  </main>
+  <!--Footer-->
+  <footer class="page-footer blue center-on-small-only">
     <!--Footer Links-->
     <div class="container-fluid">
-        <div class="row">
-            <!--First column-->
-            <div class="col-md-6">
-                <h5 class="title">Whyqueue Games</h5>
-                <p>This website is open source. You can download all my projects from Github.</p>
-            </div>
-            <!--/.First column-->
+      <div class="row">
+        <!--First column-->
+        <div class="col-md-6">
+          <h5 class="title">Whyqueue Games</h5>
+          <p>This website is open source. You can download all my projects from Github.</p>
         </div>
+        <!--/.First column-->
+      </div>
     </div>
     <!--/.Footer Links-->
     <!--Copyright-->
     <div class="footer-copyright">
-        <div class="container-fluid">
-            © 2018 Copyright: <a href="https://github.com/devWhyqueue"> devWhyqueue </a>
-        </div>
+      <div class="container-fluid">
+        © 2018 Copyright: <a href="https://github.com/devWhyqueue"> devWhyqueue </a>
+      </div>
     </div>
     <!--/.Copyright-->
-</footer>
-<!--/.Footer-->
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+  </footer>
+  <!--/.Footer-->
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>
