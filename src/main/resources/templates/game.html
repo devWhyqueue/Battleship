@@ -9,8 +9,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <!-- Background animation -->
   <link rel="stylesheet" href="./css/background.css">
+  <!-- Timer animation -->
+  <link rel="stylesheet" href="./css/timer.css">
   <!-- Favicon -->
   <link rel="icon" href="./img/favicon.ico">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <title>Battleship</title>
 
   <style>
@@ -67,12 +70,8 @@
   </header>
   <main style="height:80%;" role="main" class="container col-10 mt-5">
     <div class="row">
-      <div>
-        <h2>Your ships</h2>
-      </div>
-      <div class="offset-6">
-        <h2>Attack opponent</h2>
-      </div>
+      <h2>Your ships</h2>
+      <h2 class="offset-6">Attack opponent</h2>
     </div>
     <div style="height:90%;" class="row">
       <div class="grid-container col-5 mt-5">
@@ -177,7 +176,12 @@
         <div id="s99" class="grid-item"></div>
         <div id="s100" class="grid-item"></div>
       </div>
-      <div class="grid-container col-5 offset-2 mt-5">
+      <div id="timer" class="wrapper">
+        <div class="pie spinner"></div>
+        <div class="pie filler"></div>
+        <div class="mask"></div>
+      </div>
+      <div class="grid-container col-5  ml-2 mt-5">
         <div id="o1" class="grid-item"></div>
         <div id="o2" class="grid-item"></div>
         <div id="o3" class="grid-item"></div>
@@ -283,7 +287,18 @@
   </main>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    document.getElementById("timer").style.visibility = "hidden";
+
+    function startTimer() {
+      $('#timer').load(document.URL + ' #timer');
+      document.getElementById("timer").style.visibility = "visible";
+      setTimeout(function() {
+        document.getElementById("timer").style.visibility = "hidden";
+        // NOTIFY
+      }, 30000);
+    }
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
