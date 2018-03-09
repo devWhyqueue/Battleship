@@ -69,13 +69,32 @@
     </nav>
   </header>
   <main style="height:80%;" role="main" class="container col-10 mt-5">
+    <!-- Modal -->
+    <div class="modal fade" id="postGame" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Game Result</h5>
+            <button type="button" class="close" onclick="window.location.href='./lobby.html'" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            You {won/lost}!
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-primary" href="./lobby.html">Back to Lobby</a>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <h2>Your ships</h2>
       <h2 class="offset-6">Attack opponent</h2>
     </div>
     <div style="height:90%;" class="row">
       <div class="grid-container col-5 mt-5">
-        <div id="s1" class="grid-item"></div>
+        <div id="s1" class="grid-item" data-toggle="modal" data-target="#postGame"></div>
         <div id="s2" class="grid-item"></div>
         <div id="s3" class="grid-item"></div>
         <div id="s4" class="grid-item"></div>
@@ -182,6 +201,7 @@
         <div class="mask"></div>
       </div>
       <div class="grid-container col-5  ml-2 mt-5">
+        <!--HANDLE ITEM CLICKS WITH THYMELEAF -->
         <div id="o1" class="grid-item"></div>
         <div id="o2" class="grid-item"></div>
         <div id="o3" class="grid-item"></div>
