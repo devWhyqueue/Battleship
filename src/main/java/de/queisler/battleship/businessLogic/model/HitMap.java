@@ -9,6 +9,9 @@ public class HitMap
 	public HitMap()
 	{
 		hitMap = new PointStatus[10][10];
+		for (int i = 0; i < hitMap.length; i++)
+			for (int j = 0; j < hitMap[0].length; j++)
+				hitMap[i][j] = PointStatus.UNKNOWN;
 	}
 
 	public void setStatus(Point point, PointStatus status)
