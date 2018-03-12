@@ -1,5 +1,12 @@
 package de.queisler.battleship;
 
+import static junit.framework.TestCase.assertTrue;
+
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.enums.AttackResult;
 import de.queisler.battleship.businessLogic.enums.ShipType;
@@ -7,16 +14,11 @@ import de.queisler.battleship.businessLogic.exceptions.FleetException;
 import de.queisler.battleship.businessLogic.exceptions.GameException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPositionException;
+import de.queisler.battleship.businessLogic.model.Fleet;
 import de.queisler.battleship.businessLogic.model.Game;
 import de.queisler.battleship.businessLogic.model.Player;
 import de.queisler.battleship.businessLogic.model.Point;
 import de.queisler.battleship.businessLogic.model.Ship;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import static junit.framework.TestCase.assertTrue;
 
 public class GameTest
 {
@@ -43,14 +45,18 @@ public class GameTest
 		Ship ship4a = new Ship(ShipType.DESTROYER, new Point(7, 1), Alignment.HORIZONTAL);
 		Ship ship5a = new Ship(ShipType.SUBMARINE, new Point(9, 1), Alignment.HORIZONTAL);
 
-		player1 = new Player("Max");
+		player1 = new Player();
+		player1.setUsername("Max");
+		player1.setFleet(new Fleet());
 		player1.getFleet().addShip(ship1);
 		player1.getFleet().addShip(ship2);
 		player1.getFleet().addShip(ship3);
 		player1.getFleet().addShip(ship4);
 		player1.getFleet().addShip(ship5);
 
-		player2 = new Player("Moritz");
+		player2 = new Player();
+		player2.setUsername("Moritz");
+		player2.setFleet(new Fleet());
 		player2.getFleet().addShip(ship1a);
 		player2.getFleet().addShip(ship2a);
 		player2.getFleet().addShip(ship3a);

@@ -13,6 +13,7 @@ import de.queisler.battleship.businessLogic.enums.ShipType;
 import de.queisler.battleship.businessLogic.exceptions.FleetException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPositionException;
+import de.queisler.battleship.businessLogic.model.Fleet;
 import de.queisler.battleship.businessLogic.model.Game;
 import de.queisler.battleship.businessLogic.model.Player;
 import de.queisler.battleship.businessLogic.model.Point;
@@ -31,7 +32,9 @@ public class ShipPlacementTest
 	public void gameSetup()
 	{
 		game = new Game();
-		player1 = new Player("Max");
+		player1 = new Player();
+		player1.setUsername("Max");
+		player1.setFleet(new Fleet());
 	}
 
 	@Test
