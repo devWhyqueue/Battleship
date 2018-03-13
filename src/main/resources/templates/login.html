@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
   <!-- Background animation -->
-  <link rel="stylesheet" href="./css/background.css">
-  </link>
+  <link rel="stylesheet" th:href="@{/css/background.css}" />
   <!-- Favicon -->
-  <link rel="icon" href="./img/favicon.ico">
+  <link rel="icon" th:href="@{/img/favicon.ico}" />
   <title>Battleship</title>
 </head>
 
@@ -23,43 +23,45 @@
   </div>
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Battleship</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Battleship</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="./home.html">Home</a>
-            <!-- SET DYNAMIC LINK (VISITOR/USER) -->
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./lobby.html">Lobby</a>
-            <!-- SET PROPER LINK -->
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./profile.html">Profile</a>
-            <!-- SET PROPER LINK -->
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./about.html">About</a>
-          </li>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/}">Home</a>
+              <!-- SET DYNAMIC LINK (VISITOR/USER) -->
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/lobby}">Lobby</a>
+              <!-- SET PROPER LINK -->
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/profile}">Profile</a>
+              <!-- SET PROPER LINK -->
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/about}">About</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   </header>
   <main style="height:80%;" role="main" class="container">
     <div style="height:80%;" class="row align-items-center">
-      <div class="mx-auto">
+      <div class="col-sm-10 mx-auto">
         <h1 class="text-center mb-4">Welcome back, sailor!</h1>
         <div class="col-8 mx-auto">
-          <form class="form-signin">
-            <label for="inputUsername" class="sr-only">Username</label>
-            <label class="text-danger invisible"><b>Wrong username or password!</b></label>
+          <form class="form-signin" th:action="@{/login.html}" method="post">
+            <label for="username" class="sr-only">Username</label>
+            <label th:if="${loginError}" th:text="${errorMsg}" class="text-danger"><b></b></label>
             <!-- DYNAMICALLY ENABLE/DISABLE IT -->
-            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <input type="text" id="username" class="form-control" placeholder="Username" required="true" autofocus="true" />
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="Password" required="true" />
             <button style="background: #015871;" class="btn btn-lg btn-primary btn-block mt-3" type="submit">
                         Sign in
                     </button>
@@ -95,7 +97,7 @@
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script type="text/javascript" src='./js/bootstrap.min.js'></script>
+  <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 
 </html>

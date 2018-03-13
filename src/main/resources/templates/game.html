@@ -1,18 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
   <!-- Background animation -->
-  <link rel="stylesheet" href="./css/background.css">
-  <!-- Timer animation -->
-  <link rel="stylesheet" href="./css/timer.css">
+  <link rel="stylesheet" th:href="@{/css/background.css}" />
   <!-- Favicon -->
-  <link rel="icon" href="./img/favicon.ico">
+  <link rel="icon" th:href="@{/img/favicon.ico}" />
+  <!-- Timer animation -->
+  <link rel="stylesheet" th:href="@{/css/timer.css}" />
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <title>Battleship</title>
 
@@ -42,29 +43,31 @@
   </div>-->
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Battleship</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Battleship</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="./home.html">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./lobby.html">Lobby</a>
-            <!-- SET PROPER LINK -->
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./profile.html">Profile</a>
-            <!-- SET PROPER LINK -->
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./about.html">About</a>
-          </li>
-        </ul>
-        <button class="btn btn-outline-danger btn-lg my-2 my-sm-0 invisible" type="submit">Logout</button>
-        <!-- DYNAMICALLY ENABLE/DISABLE IT -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="./home.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./lobby.html">Lobby</a>
+              <!-- SET PROPER LINK -->
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./profile.html">Profile</a>
+              <!-- SET PROPER LINK -->
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./about.html">About</a>
+            </li>
+          </ul>
+          <button class="btn btn-outline-danger btn-lg my-2 my-sm-0 invisible" type="submit">Logout</button>
+          <!-- DYNAMICALLY ENABLE/DISABLE IT -->
+        </div>
       </div>
     </nav>
   </header>
@@ -89,11 +92,11 @@
       </div>
     </div>
     <div class="row">
-      <h2>Your ships</h2>
-      <h2 class="offset-6">Attack opponent</h2>
+      <h2 class="col-lg-3">Your ships</h2>
+      <h2 class="col-lg-3 offset-6">Attack opponent</h2>
     </div>
     <div style="height:90%;" class="row">
-      <div class="grid-container col-5 mt-5">
+      <div class="grid-container col-sm-5 mt-5">
         <div id="s1" class="grid-item" data-toggle="modal" data-target="#postGame"></div>
         <div id="s2" class="grid-item"></div>
         <div id="s3" class="grid-item"></div>
@@ -195,12 +198,12 @@
         <div id="s99" class="grid-item"></div>
         <div id="s100" class="grid-item"></div>
       </div>
-      <div id="timer" class="wrapper">
+      <div id="timer" class="col-lg-1 wrapper">
         <div class="pie spinner"></div>
         <div class="pie filler"></div>
         <div class="mask"></div>
       </div>
-      <div class="grid-container col-5  ml-2 mt-5">
+      <div class="grid-container col-sm-5 ml-2 mt-5">
         <!--HANDLE ITEM CLICKS WITH THYMELEAF -->
         <div id="o1" class="grid-item"></div>
         <div id="o2" class="grid-item"></div>
@@ -320,7 +323,7 @@
     }
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script type="text/javascript" src='./js/bootstrap.min.js'></script>
+  <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 
 </html>
