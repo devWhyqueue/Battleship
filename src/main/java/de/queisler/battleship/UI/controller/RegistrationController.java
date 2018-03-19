@@ -9,6 +9,8 @@ import de.queisler.battleship.businessLogic.model.Player;
 @Controller
 public class RegistrationController
 {
+	//TODO: Registration
+
 	@GetMapping(value = "/register")
 	public String register(Model model)
 	{
