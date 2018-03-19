@@ -16,11 +16,11 @@
 </head>
 
 <body>
-  <!-- Background animation -->
+  <!-- Background animation
   <div class="ocean">
     <div class="wave"></div>
     <div class="wave"></div>
-  </div>
+  </div>-->
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
@@ -36,11 +36,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/lobby}">Lobby</a>
-              <!-- SET PROPER LINK -->
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/profile}">Profile</a>
-              <!-- SET PROPER LINK -->
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/about}">About</a>
@@ -55,16 +53,18 @@
       <div class="col-sm-10 mx-auto">
         <h1 class="text-center mb-4">Welcome back, sailor!</h1>
         <div class="col-8 mx-auto">
-          <form class="form-signin" th:action="@{/login.html}" method="post">
+          <form class="form-signin" th:action="@{/login}" method="post">
+            <div class="text-danger mb-2" th:if="${param.error}">
+              <b>Invalid username or password!</b>
+            </div>
+            <div class="text-info mb-2" th:if="${param.logout}">
+              <b>You have been logged out.</b>
+            </div>
             <label for="username" class="sr-only">Username</label>
-            <label th:if="${loginError}" th:text="${errorMsg}" class="text-danger"><b></b></label>
-            <!-- DYNAMICALLY ENABLE/DISABLE IT -->
-            <input type="text" id="username" class="form-control" placeholder="Username" required="true" autofocus="true" />
+            <input type="text" name="username" class="form-control" placeholder="Username" required="true" autofocus="true" />
             <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" class="form-control" placeholder="Password" required="true" />
-            <button style="background: #015871;" class="btn btn-lg btn-primary btn-block mt-3" type="submit">
-                        Sign in
-                    </button>
+            <input type="password" name="password" class="form-control" placeholder="Password" required="true" />
+            <input style="background: #015871;" class="btn btn-lg btn-primary btn-block mt-3" type="submit" value="Sign in" />
           </form>
         </div>
       </div>
