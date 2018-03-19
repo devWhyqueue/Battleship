@@ -22,9 +22,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(HttpSecurity http) throws Exception
 	{
-		//		http.csrf().disable().authorizeRequests().antMatchers("/home", "/login", "/register", "/about").permitAll()
-		//			.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
-		http.authorizeRequests().antMatchers("/login*").permitAll();
+		//		http.csrf().disable().authorizeRequests().antMatchers("/", "/login", "/register", "/about.html").permitAll()
+		//			.anyRequest().authenticated().and().formLogin().loginPage("/login").failureUrl("/login-error").permitAll()
+		//			.and().logout().permitAll();
+		//		http.formLogin().loginPage("/login").failureUrl("/login-error").and().logout().logoutUrl("/logout");
+		http.authorizeRequests().antMatchers("/", "/index.html", "/about.html").permitAll().anyRequest().authenticated()
+			.and().formLogin().loginPage("/login").defaultSuccessUrl("/index.html").permitAll().and().logout()
+			.permitAll();
 	}
 
 	@Override
@@ -32,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	{
 		web.ignoring().antMatchers("/css/**");
 		web.ignoring().antMatchers("/js/**");
+		web.ignoring().antMatchers("/img/**");
 	}
 
 	@Autowired
