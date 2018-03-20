@@ -45,8 +45,7 @@
               <a class="nav-link" th:href="@{/about}">About</a>
             </li>
           </ul>
-          <button class="btn btn-outline-danger btn-lg my-2 my-sm-0 invisible" type="submit">Logout</button>
-          <!-- DYNAMICALLY ENABLE/DISABLE IT -->
+          <a class="btn btn-outline-danger btn-lg my-2 my-sm-0" th:href="@{/logout}">Logout</a>
         </div>
       </div>
     </nav>
@@ -79,30 +78,16 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">Username</th>
                 <th scope="col">First</th>
                 <th scope="col">Last</th>
               </tr>
             </thead>
             <tbody>
-              <tr data-toggle="modal" data-target="#exampleModalCenter">
-                <th scope="row">1</th>
-                <td>mark134</td>
-                <td>Mark</td>
-                <td>Otto</td>
-              </tr>
-              <tr data-toggle="modal" data-target="#exampleModalCenter">
-                <th scope="row">2</th>
-                <td>cobe3</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-              </tr>
-              <tr data-toggle="modal" data-target="#exampleModalCenter">
-                <th scope="row">3</th>
-                <td>birdy9</td>
-                <td>Larry</td>
-                <td>Bird</td>
+            <tr data-toggle="modal" data-target="#exampleModalCenter" th:each="p : ${players}">
+              <td th:text="${p.username}">mark134</td>
+              <td th:text="${p.firstName}">Mark</td>
+              <td th:text="${p.lastName}">Otto</td>
               </tr>
             </tbody>
           </table>

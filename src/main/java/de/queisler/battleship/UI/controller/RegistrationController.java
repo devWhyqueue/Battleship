@@ -24,6 +24,7 @@ public class RegistrationController
 		return "register";
 	}
 
+    // TODO: autofocus username field
     @GetMapping(value = "/register", params = "error")
     public String registerError(Model model) {
         player.setUsername(null);

@@ -1,5 +1,8 @@
 package de.queisler.battleship.data.services;
 
+import de.queisler.battleship.businessLogic.model.Player;
+import de.queisler.battleship.data.exceptions.PlayerAlreadyExistException;
+import de.queisler.battleship.data.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,9 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.queisler.battleship.businessLogic.model.Player;
-import de.queisler.battleship.data.exceptions.PlayerAlreadyExistException;
-import de.queisler.battleship.data.repositories.PlayerRepository;
+import java.util.List;
 
 @Service
 @Transactional
@@ -30,6 +31,11 @@ public class PlayerServiceImpl implements PlayerService
 
 		player.setPassword(passwordEncoder.encode(player.getPassword()));
 		return repository.save(player);
+	}
+
+	@Override
+	public List<Player> getAllPlayers() {
+		return repository.findAll();
 	}
 
 	@Override
