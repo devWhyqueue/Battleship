@@ -1,18 +1,13 @@
 package de.queisler.battleship.businessLogic.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import de.queisler.battleship.businessLogic.enums.PlayerStatus;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -26,7 +21,7 @@ public class Player
 
 	@Column(unique = true)
 	@NotNull
-	@Size(min = 5)
+    @Size(min = 3)
 	private String username;
 	@NotNull
 	@Size(min = 5)
