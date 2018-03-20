@@ -11,4 +11,6 @@ public interface PlayerService extends UserDetailsService
 	Player savePlayer(Player player) throws PlayerAlreadyExistException;
 
 	List<Player> getAllPlayers();
+
+    Player getPlayer(String username);
 }

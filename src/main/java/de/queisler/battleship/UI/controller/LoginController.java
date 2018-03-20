@@ -15,8 +15,7 @@ public class LoginController
 	public String login()
 	{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (!(authentication instanceof AnonymousAuthenticationToken))
-			return "redirect:index.html"; // TODO: CHANGE TO LOBBY
+		if (!(authentication instanceof AnonymousAuthenticationToken)) return "redirect:lobby";
 		return "login";
 	}
 }
