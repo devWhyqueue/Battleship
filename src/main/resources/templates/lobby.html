@@ -45,7 +45,9 @@
               <a class="nav-link" th:href="@{/about}">About</a>
             </li>
           </ul>
-          <a class="btn btn-outline-danger btn-lg my-2 my-sm-0" th:href="@{/logout}">Logout</a>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout" class="btn btn-outline-danger btn-lg my-2 my-sm-0"/>
+            </form>
         </div>
       </div>
     </nav>
