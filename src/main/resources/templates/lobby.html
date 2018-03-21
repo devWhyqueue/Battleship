@@ -66,11 +66,11 @@
           </button>
           </div>
           <div class="modal-body">
-            Do you really want to send an invite to {Player}?
+            <p id="modalText"> DEFAULT </p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Send</button>
+            <button onclick="location.href='lobby?invite='+user;return false;" type="button" class="btn btn-primary">Send</button>
           </div>
         </div>
       </div>
@@ -88,13 +88,25 @@
               </tr>
             </thead>
             <tbody>
-              <tr data-toggle="modal" data-target="#exampleModalCenter" th:each="p : ${players}">
-                <td th:text="${p.username}">mark134</td>
-                <td th:text="${p.firstName}">Mark</td>
-                <td th:text="${p.lastName}">Otto</td>
-              </tr>
+              <div th:each="p : ${players}">
+                <tr data-toggle="modal" data-target="#exampleModalCenter" th:data-user="${p.username}">
+                  <td th:text="${p.username}">mark134</td>
+                  <td th:text="${p.firstName}">Mark</td>
+                  <td th:text="${p.lastName}">Otto</td>
+                </tr>
+              </div>
             </tbody>
           </table>
+          <div id="invitations" th:fragment="invitedBy" th:object="${invitingPlayer}">
+            <p th:if="${invitingPlayer != null}" th:text="'You were invited by ' + ${invitingPlayer.username} + '!'">DEFAULT</p>
+          </div>
+          <script>
+            var user;
+            $('#exampleModalCenter').on('show.bs.modal', function(e) {
+              user = e.relatedTarget.dataset.user;
+              document.getElementById("modalText").innerHTML = "Do you really want to send an invite to " + user.bold() + "?";
+            });
+          </script>
         </div>
       </div>
     </div>
@@ -124,11 +136,17 @@
   <!--/.Footer-->
   <script type="text/javascript">
     function reloadTable() {
-      var url = '/lobby?update';
+      var url = '/lobby?updateTable';
       $("#playerTable").load(url);
     }
+
+    function reloadInvitations() {
+      var url = '/lobby?checkInvitations';
+      $("#invitations").load(url);
+    }
     setInterval(function() {
-      reloadTable() // this will run after every 5 seconds
+      reloadTable();
+      reloadInvitations(); // this will run after every 5 seconds
     }, 5000);
   </script>
   <!-- Optional JavaScript -->

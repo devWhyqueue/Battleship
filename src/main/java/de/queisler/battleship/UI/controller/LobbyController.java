@@ -11,18 +11,19 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.support.ServletRequestHandledEvent;
 
 import de.queisler.battleship.businessLogic.model.Player;
 import de.queisler.battleship.data.services.PlayerService;
 
-@Controller("lobbyController")
+@Controller()
 public class LobbyController
 {
-	//TODO: Async update task of table
 	@Autowired
 	private PlayerService playerService;
 	private Map<String, Player> players = new HashMap<>();
+	private Map<String, Player> invitations = new HashMap<>(); // Map<Receiver, Sender>
 
 	@GetMapping("/lobby")
 	public String lobby(Model model)
@@ -34,8 +35,8 @@ public class LobbyController
 		return "lobby";
 	}
 
-	@GetMapping(value = "/lobby", params = "update")
-	public String tableUpdate(Model model)
+	@GetMapping(value = "/lobby", params = "updateTable")
+	public String updateTable(Model model)
 	{
 		Map<String, Player> tableData = new HashMap<>(players);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -44,8 +45,25 @@ public class LobbyController
 		return "lobby :: playerTable";
 	}
 
+	@GetMapping(value = "/lobby", params = "checkInvitations")
+	public String updateInvitations(Model model)
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Player sender = invitations.get(authentication.getName());
+		model.addAttribute("invitingPlayer", sender);
+		return "lobby :: invitedBy";
+	}
+
+	@GetMapping(value = "/lobby", params = "invite")
+	public String sendInvitation(Model model, @RequestParam("invite") String invitedPlayer)
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		invitations.put(invitedPlayer, playerService.getPlayer(authentication.getName()));
+		return "redirect:lobby";
+	}
+
 	@EventListener
-	public void handleEvent(ServletRequestHandledEvent e)
+	public void handleLobbyEvents(ServletRequestHandledEvent e)
 	{
 		String username = e.getUserName();
 		String url = e.getRequestUrl();
