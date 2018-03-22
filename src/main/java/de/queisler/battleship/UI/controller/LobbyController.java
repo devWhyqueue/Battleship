@@ -74,6 +74,11 @@ public class LobbyController
 				players.put(username, playerService.getPlayer(username));
 			else
 				players.remove(username);
+
+		}
+		else if (url.equals("/login"))
+		{
+			players.clear();
 		}
 	}
 }
