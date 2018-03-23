@@ -14,7 +14,7 @@
   <link rel="icon" th:href="@{/img/favicon.ico}" />
   <title>Battleship</title>
 
-  <link rel="stylesheet" th:href="{/css/gridstack.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/gridstack.min.css}" />
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.0/jquery-ui.js"></script>
@@ -91,6 +91,7 @@
         </div>
         <div>
           <button type="button" class="btn btn-primary" id="lock-in" onclick="saveGrid()">Lock in</button>
+          <p id="saved-data"></p>
         </div>
       </div>
     </div>
@@ -144,6 +145,8 @@
       var but = document.getElementById("lock-in");
       but.firstChild.data = "Waiting for opponent...";
       but.disabled = true;
+      document.getElementById("saved-data").innerHTML = JSON.stringify(this.serializedData, null, '    ');
+      window.location.href = "/placeShips?ships=" + btoa(JSON.stringify(this.serializedData, null, '    '));
       $('#saved-data').val(JSON.stringify(this.serializedData, null, '    '));
       return false;
     }
