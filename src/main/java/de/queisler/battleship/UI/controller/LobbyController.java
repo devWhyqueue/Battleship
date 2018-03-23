@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,13 +23,13 @@ public class LobbyController
 	private PlayerService playerService;
 	private Map<String, Player> players = new HashMap<>();
 	private Map<String, Player> invitations = new HashMap<>(); // Map<Receiver, Sender>
+	private Map<String, Player> acceptedInvitations = new HashMap<>(); // Map<Sender, acceptingPlayer>
 
 	@GetMapping("/lobby")
 	public String lobby(Model model)
 	{
 		Map<String, Player> tableData = new HashMap<>(players);
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		tableData.remove(authentication.getName());
+		tableData.remove(getUsernameFromAuthentication());
 		model.addAttribute("players", new ArrayList<Player>(tableData.values()));
 		return "lobby";
 	}
@@ -39,8 +38,7 @@ public class LobbyController
 	public String updateTable(Model model)
 	{
 		Map<String, Player> tableData = new HashMap<>(players);
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		tableData.remove(authentication.getName());
+		tableData.remove(getUsernameFromAuthentication());
 		model.addAttribute("players", new ArrayList<Player>(tableData.values()));
 		return "lobby :: playerTable";
 	}
@@ -48,18 +46,41 @@ public class LobbyController
 	@GetMapping(value = "/lobby", params = "checkInvitations")
 	public String updateInvitations(Model model)
 	{
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Player sender = invitations.get(authentication.getName());
+		Player sender = invitations.get(getUsernameFromAuthentication());
 		model.addAttribute("invitingPlayer", sender);
 		return "lobby :: invitedBy";
+	}
+
+	@GetMapping(value = "/lobby", params = "checkAcceptedInvitations")
+	public String updateAcceptedInvitations(Model model)
+	{
+		Player opponent = acceptedInvitations.get(getUsernameFromAuthentication());
+		acceptedInvitations.remove(getUsernameFromAuthentication());
+		model.addAttribute("opponent", opponent);
+		return "lobby :: acceptedInvitations";
 	}
 
 	@GetMapping(value = "/lobby", params = "invite")
 	public String sendInvitation(Model model, @RequestParam("invite") String invitedPlayer)
 	{
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		invitations.put(invitedPlayer, playerService.getPlayer(authentication.getName()));
+		invitations.put(invitedPlayer, playerService.getPlayer(getUsernameFromAuthentication()));
 		return "redirect:lobby";
+	}
+
+	@GetMapping(value = "/lobby", params = "acceptInvitation")
+	public String confirmInvitation(Model model)
+	{
+		Player opponent = invitations.get(getUsernameFromAuthentication());
+		acceptedInvitations.put(opponent.getUsername(), playerService.getPlayer(getUsernameFromAuthentication()));
+		players.remove(getUsernameFromAuthentication());
+		players.remove(invitations.get(getUsernameFromAuthentication()).getUsername());
+		invitations.remove(getUsernameFromAuthentication());
+		return "redirect:placeShips?opponent=" + opponent.getUsername();
+	}
+
+	private String getUsernameFromAuthentication()
+	{
+		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
 	@EventListener

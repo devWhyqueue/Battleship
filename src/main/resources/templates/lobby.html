@@ -98,7 +98,21 @@
             </tbody>
           </table>
           <div id="invitations" th:fragment="invitedBy" th:object="${invitingPlayer}">
-            <p th:if="${invitingPlayer != null}" th:text="'You were invited by ' + ${invitingPlayer.username} + '!'">DEFAULT</p>
+            <div th:if="${invitingPlayer != null}">
+              <a type="button" class="btn btn-info" th:text="'Accept invitation from ' + ${invitingPlayer.username}" th:href="@{/lobby?acceptInvitation}"></a>
+            </div>
+          </div>
+          <div id="acceptedInvitations" th:fragment="acceptedInvitations" th:object="${opponent}">
+            <div th:if="${opponent != null}">
+              <script th:inline="javascript">
+                /*<![CDATA[*/
+
+                var opponent = /*[[${opponent.username}]]*/ 'Sebastian';
+                window.location.href = "/placeShips?opponent=" + opponent;
+
+                /*]]>*/
+              </script>
+            </div>
           </div>
           <script>
             var user;
@@ -144,9 +158,15 @@
       var url = '/lobby?checkInvitations';
       $("#invitations").load(url);
     }
+
+    function reloadAcceptedInvitations() {
+      var url = '/lobby?checkAcceptedInvitations';
+      $("#acceptedInvitations").load(url);
+    }
     setInterval(function() {
       reloadTable();
-      reloadInvitations(); // this will run after every 5 seconds
+      reloadInvitations();
+      reloadAcceptedInvitations(); // this will run after every 5 seconds
     }, 5000);
   </script>
   <!-- Optional JavaScript -->
