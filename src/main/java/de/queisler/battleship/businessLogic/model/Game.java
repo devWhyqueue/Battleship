@@ -1,10 +1,11 @@
 package de.queisler.battleship.businessLogic.model;
 
+import java.util.HashMap;
+import java.util.Set;
+
 import de.queisler.battleship.businessLogic.enums.AttackResult;
 import de.queisler.battleship.businessLogic.enums.PointStatus;
 import de.queisler.battleship.businessLogic.exceptions.GameException;
-
-import java.util.HashMap;
 
 public class Game
 {
@@ -40,6 +41,11 @@ public class Game
 		return players.containsKey(player);
 	}
 
+	public Set<Player> getPlayers()
+	{
+		return players.keySet();
+	}
+
 	public boolean isReady()
 	{
 		boolean ready = players.size() == 2;
@@ -62,8 +68,10 @@ public class Game
 					if (entry.getValue().getStatus(point) == PointStatus.UNKNOWN)
 					{
 						AttackResult result = entry.getKey().getFleet().attack(point);
-						if (result == AttackResult.MISS) entry.getValue().setStatus(point, PointStatus.WATER);
-						else entry.getValue().setStatus(point, PointStatus.SHIP);
+						if (result == AttackResult.MISS)
+							entry.getValue().setStatus(point, PointStatus.WATER);
+						else
+							entry.getValue().setStatus(point, PointStatus.SHIP);
 
 						return result;
 					}
