@@ -2,6 +2,8 @@ package de.queisler.battleship;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
+import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.startsWith;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -52,7 +54,8 @@ public class ShipPlacementTest
 		throws FleetException, InvalidPositionException, InvalidPointException
 	{
 		expectedEx.expect(InvalidPointException.class);
-		expectedEx.expectMessage("Der Punkt ist nicht gültig!");
+		expectedEx.expectMessage(startsWith("Der Punkt "));
+		expectedEx.expectMessage(endsWith(" ist nicht gültig!"));
 
 		Ship ship1 = new Ship(ShipType.BATTLESHIP, new Point(15, 1), Alignment.HORIZONTAL);
 
@@ -64,7 +67,7 @@ public class ShipPlacementTest
 		throws FleetException, InvalidPointException, InvalidPositionException
 	{
 		expectedEx.expect(InvalidPositionException.class);
-		expectedEx.expectMessage("Diese Position beinhaltet ungültige Punkte!");
+		expectedEx.expectMessage(startsWith("Position ungültig!"));
 
 		Ship ship1 = new Ship(ShipType.BATTLESHIP, new Point(1, 9), Alignment.HORIZONTAL);
 
@@ -121,7 +124,8 @@ public class ShipPlacementTest
 		throws FleetException, InvalidPointException, InvalidPositionException
 	{
 		expectedEx.expect(FleetException.class);
-		expectedEx.expectMessage("Das Schiff überschneidet sich mit einem anderen in der Flotte!");
+		expectedEx.expectMessage(startsWith("Das Schiff "));
+		expectedEx.expectMessage(endsWith(" überschneidet sich mit einem anderen in der Flotte!"));
 
 		Ship ship1 = new Ship(ShipType.BATTLESHIP, new Point(1, 1), Alignment.HORIZONTAL);
 		Ship ship2 = new Ship(ShipType.CARRIER, new Point(1, 3), Alignment.HORIZONTAL);
@@ -138,7 +142,8 @@ public class ShipPlacementTest
 		throws FleetException, InvalidPointException, InvalidPositionException
 	{
 		expectedEx.expect(FleetException.class);
-		expectedEx.expectMessage("Das Schiff berührt ein anderes in der Flotte!");
+		expectedEx.expectMessage(startsWith("Das Schiff "));
+		expectedEx.expectMessage(endsWith(" berührt ein anderes in der Flotte!"));
 
 		Ship ship1 = new Ship(ShipType.BATTLESHIP, new Point(1, 1), Alignment.HORIZONTAL);
 		Ship ship2 = new Ship(ShipType.CARRIER, new Point(1, 5), Alignment.HORIZONTAL);
