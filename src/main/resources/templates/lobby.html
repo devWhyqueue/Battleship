@@ -104,13 +104,8 @@
           </div>
           <div id="acceptedInvitations" th:fragment="acceptedInvitations" th:object="${opponent}">
             <div th:if="${opponent != null}">
-              <script th:inline="javascript">
-                /*<![CDATA[*/
-
-                var opponent = /*[[${opponent.username}]]*/ 'Sebastian';
-                window.location.href = "/placeShips?opponent=" + opponent;
-
-                /*]]>*/
+              <script type="text/javascript">
+                window.location.href = "/placeShips";
               </script>
             </div>
           </div>

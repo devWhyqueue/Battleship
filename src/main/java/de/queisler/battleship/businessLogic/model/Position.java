@@ -2,6 +2,7 @@ package de.queisler.battleship.businessLogic.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
@@ -21,30 +22,26 @@ public class Position
 		{
 			try
 			{
-				new Point(startPoint.getRow(), startPoint.getColumn() + length); // Grenzentest
-
 				for (int i = 0; i < length; i++)
 					points.add(new Point(startPoint.getRow(), startPoint.getColumn() + i));
 
 			}
 			catch (InvalidPointException e)
 			{
-				throw new InvalidPositionException("Diese Position beinhaltet ungültige Punkte!");
+				throw new InvalidPositionException("Position ungültig! " + e.getMessage());
 			}
 		}
 		else
 		{
 			try
 			{
-				new Point(startPoint.getRow() + length, startPoint.getColumn()); // Grenzentest
-
 				for (int i = 0; i < length; i++)
 					points.add(new Point(startPoint.getRow() + i, startPoint.getColumn()));
 
 			}
 			catch (InvalidPointException e)
 			{
-				throw new InvalidPositionException("Diese Position beinhaltet ungültige Punkte!");
+				throw new InvalidPositionException("Position ungültig! " + e.getMessage());
 			}
 		}
 	}
@@ -98,5 +95,11 @@ public class Position
 				return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "[" + points.stream().map(Object::toString).collect(Collectors.joining(", ")) + "]";
 	}
 }

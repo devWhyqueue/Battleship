@@ -40,7 +40,7 @@ public class ShipPlacementTest
 	@Test
 	public void addShipToFleet() throws FleetException, InvalidPositionException, InvalidPointException
 	{
-		Ship ship1 = new Ship(ShipType.BATTLESHIP, new Point(1, 1), Alignment.HORIZONTAL);
+		Ship ship1 = new Ship(ShipType.BATTLESHIP, new Point(1, 7), Alignment.HORIZONTAL);
 
 		player1.getFleet().addShip(ship1);
 

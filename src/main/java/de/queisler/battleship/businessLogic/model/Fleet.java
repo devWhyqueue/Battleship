@@ -1,13 +1,13 @@
 package de.queisler.battleship.businessLogic.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.enums.AttackResult;
 import de.queisler.battleship.businessLogic.exceptions.FleetException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPositionException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Fleet
 {
@@ -35,9 +35,10 @@ public class Fleet
 			for (Ship s : ships)
 			{
 				if (s.getPosition().isOverlapping(ship.getPosition()))
-					throw new FleetException("Das Schiff überschneidet sich mit einem anderen in der Flotte!");
+					throw new FleetException(
+						"Das Schiff " + s.toString() + " überschneidet sich mit einem anderen in der Flotte!");
 				if (s.getPosition().isNextTo(ship.getPosition()))
-					throw new FleetException("Das Schiff berührt ein anderes in der Flotte!");
+					throw new FleetException("Das Schiff " + s.toString() + " berührt ein anderes in der Flotte!");
 			}
 		}
 	}
@@ -66,7 +67,7 @@ public class Fleet
 		int i = ships.indexOf(ship);
 		if (i != -1)
 		{
-			ship.setPosition(new Position(startPoint, alignment, ship.getSize()));
+			ship.setPosition(new Position(startPoint, alignment, ship.getShipType().getSize()));
 		}
 		else
 		{

@@ -61,8 +61,9 @@
               <a class="nav-link" th:href="@{/about}">About</a>
             </li>
           </ul>
-          <button class="btn btn-outline-danger btn-lg my-2 my-sm-0 invisible" type="submit">Logout</button>
-          <!-- DYNAMICALLY ENABLE/DISABLE IT -->
+          <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout" class="btn btn-outline-danger btn-lg my-2 my-sm-0" />
+          </form>
         </div>
       </div>
     </nav>
@@ -72,6 +73,9 @@
     <div style="height:75%;" class="row">
       <div class="mx-auto col-sm-10">
         <h1>Place your ships...</h1>
+        <div class="text-danger mb-2">
+          <b id="errorMsg"></b>
+        </div>
         <div class="grid-stack">
           <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="5" data-gs-height="1" oncontextmenu="rotate(this);return false;">
             <div class="grid-stack-item-content"></div>
@@ -82,17 +86,23 @@
           <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="3" data-gs-height="1" oncontextmenu="rotate(this);return false;">
             <div class="grid-stack-item-content"></div>
           </div>
-          <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="2" data-gs-height="1" oncontextmenu="rotate(this);return false;">
+          <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="3" data-gs-height="1" oncontextmenu="rotate(this);return false;">
             <div class="grid-stack-item-content"></div>
           </div>
-          <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="1" data-gs-height="1" oncontextmenu="rotate(this);return false;">
+          <div class="grid-stack-item" data-gs-x="0" data-gs-y="0" data-gs-width="2" data-gs-height="1" oncontextmenu="rotate(this);return false;">
             <div class="grid-stack-item-content"></div>
           </div>
         </div>
         <div>
           <button type="button" class="btn btn-primary" id="lock-in" onclick="saveGrid()">Lock in</button>
-          <p id="saved-data"></p>
         </div>
+      </div>
+    </div>
+    <div id="gameReady" th:fragment="gameReady" th:object="${gameReady}">
+      <div th:if="${gameReady != null}">
+        <script type="text/javascript">
+          window.location.href = "/game";
+        </script>
       </div>
     </div>
   </main>
@@ -140,16 +150,36 @@
           height: node.height
         };
       }, this);
-      var grid = $('.grid-stack').data('gridstack');
-      grid.setStatic(true);
-      var but = document.getElementById("lock-in");
-      but.firstChild.data = "Waiting for opponent...";
-      but.disabled = true;
-      document.getElementById("saved-data").innerHTML = JSON.stringify(this.serializedData, null, '    ');
-      window.location.href = "/placeShips?ships=" + btoa(JSON.stringify(this.serializedData, null, '    '));
-      $('#saved-data').val(JSON.stringify(this.serializedData, null, '    '));
+
+      var ajaxdata = btoa(JSON.stringify(this.serializedData, null, '    '));
+      var value = 'shipPlacement=' + ajaxdata;
+      $.ajax({
+        url: "/placeShips",
+        type: "post",
+        data: value,
+        cache: false,
+        success: function(msg) {
+          $('#errorMsg').text('');
+          var grid = $('.grid-stack').data('gridstack');
+          grid.setStatic(true);
+          var but = document.getElementById("lock-in");
+          but.firstChild.data = "Waiting for opponent...";
+          but.disabled = true;
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          $('#errorMsg').text(XMLHttpRequest.responseText);
+        }
+      });
       return false;
     }
+
+    function reloadGameStatus() {
+      var url = '/placeShips?isGameReady';
+      $("#gameReady").load(url);
+    }
+    setInterval(function() {
+      reloadGameStatus(); // this will run after every 5 seconds
+    }, 5000);
   </script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

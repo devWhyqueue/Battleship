@@ -18,25 +18,12 @@ public class Ship
 	public Ship(ShipType shipType, Point startPoint, Alignment alignment) throws InvalidPositionException
 	{
 		this.shipType = shipType;
-		this.position = new Position(startPoint, alignment, getSize());
+		this.position = new Position(startPoint, alignment, shipType.getSize());
 	}
 
-	public int getSize()
+	@Override
+	public String toString()
 	{
-		switch (shipType)
-		{
-			case CARRIER:
-				return 5;
-			case BATTLESHIP:
-				return 4;
-			case CRUISER:
-				return 3;
-			case SUBMARINE:
-				return 3;
-			case DESTROYER:
-				return 2;
-			default:
-				return 0; // FEHLER
-		}
+		return shipType + " " + position.toString();
 	}
 }
