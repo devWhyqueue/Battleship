@@ -51,7 +51,7 @@ public class Game
 		boolean ready = players.size() == 2;
 		for (java.util.Map.Entry<Player, HitMap> entry : players.entrySet())
 		{
-			if (!entry.getKey().getFleet().isReady())
+			if (entry.getKey().getFleet() == null || !entry.getKey().getFleet().isReady())
 				ready = false;
 		}
 		return ready;
