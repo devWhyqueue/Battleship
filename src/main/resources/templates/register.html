@@ -55,8 +55,8 @@
       <div class="col-sm-6 mx-auto">
         <h1 class="text-center mb-4">Come on board!</h1>
         <form role="form" th:object="${player}" th:action="@{/register}" method="post">
-          <div class="text-danger mb-2" th:if="${param.error}">
-            <b>Username already exists!</b>
+          <div class="text-danger mb-2" th:if="${error}">
+            <b th:text="${error}">Username already exists!</b>
           </div>
           <div class="form-row">
             <div class="form-group w-50">
