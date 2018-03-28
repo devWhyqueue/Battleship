@@ -6,6 +6,8 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+  <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
   <!-- Background animation -->
@@ -153,9 +155,14 @@
 
       var ajaxdata = btoa(JSON.stringify(this.serializedData, null, '    '));
       var value = 'shipPlacement=' + ajaxdata;
+      var token = $('#_csrf').attr('content');
+      var header = $('#_csrf_header').attr('content');
       $.ajax({
         url: "/placeShips",
         type: "post",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+        },
         data: value,
         cache: false,
         success: function(msg) {
@@ -175,7 +182,11 @@
 
     function reloadGameStatus() {
       var url = '/placeShips?isGameReady';
-      $("#gameReady").load(url);
+      $("#gameReady").load(url, function( response, status, xhr ) {
+    	  if ( xhr.status == 308 ) {
+    		  window.location.href = "/index.html";
+    		  }
+    	  });
     }
     setInterval(function() {
       reloadGameStatus(); // this will run after every 5 seconds
