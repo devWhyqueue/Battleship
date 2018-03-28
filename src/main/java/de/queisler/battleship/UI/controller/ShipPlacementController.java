@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,6 @@ import de.queisler.battleship.businessLogic.model.Ship;
 @Controller()
 public class ShipPlacementController
 {
-	// TODO: CSRF Post of ShipPlacement-Data
 	// TODO: Ship design/naming via CSS
 	@Autowired
 	private GameManagement gameManagement;
@@ -43,25 +43,17 @@ public class ShipPlacementController
 	}
 
 	@GetMapping(value = "/placeShips", params = "isGameReady")
-	public String updateInvitations(Model model)
+	public String updateInvitations(Model model) throws GameException
 	{
-		try
-		{
-			if (gameManagement.getGame(getPlayerFromAuthentication()).isReady())
-				model.addAttribute("gameReady", "Spiel bereit");
-		}
-		catch (GameException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if (gameManagement.getGame(getPlayerFromAuthentication()).isReady())
+			model.addAttribute("gameReady", "Spiel bereit");
 
 		return "placeShips :: gameReady";
 	}
 
 	@PostMapping(value = "/placeShips")
-	public ResponseEntity<String> getPlacement(Model model, @RequestParam("shipPlacement") String ships)
-		throws ParseException
+	public ResponseEntity<?> getPlacement(Model model, @RequestParam("shipPlacement") String ships)
+		throws ParseException, FleetException, InvalidPositionException, InvalidPointException
 	{
 		String decShips = StringUtils.newStringUtf8(Base64.decodeBase64(ships));
 
@@ -101,24 +93,19 @@ public class ShipPlacementController
 					t = ShipType.DESTROYER;
 				break;
 			}
-			try
-			{
-				p.getFleet().addShip(new Ship(t, new Point(Math.toIntExact(y), Math.toIntExact(x)), a));
-			}
-			catch (FleetException e)
-			{
-				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
-			}
-			catch (InvalidPositionException e)
-			{
-				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
-			}
-			catch (InvalidPointException e)
-			{
-				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
-			}
+			p.getFleet().addShip(new Ship(t, new Point(Math.toIntExact(y), Math.toIntExact(x)), a));
 		}
-		return ResponseEntity.status(HttpStatus.OK).body("Placement completed");
+		return ResponseEntity.ok("Placement completed");
+	}
+
+	@ExceptionHandler({ FleetException.class, InvalidPositionException.class, InvalidPointException.class,
+			GameException.class })
+	public ResponseEntity<?> handleException(Exception e)
+	{
+		if (e instanceof GameException)
+			return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT).build();
+
+		return ResponseEntity.badRequest().body(e.getMessage());
 	}
 
 	private Player getPlayerFromAuthentication()
