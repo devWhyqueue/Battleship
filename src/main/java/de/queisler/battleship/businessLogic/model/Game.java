@@ -1,5 +1,7 @@
 package de.queisler.battleship.businessLogic.model;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,15 +10,21 @@ import de.queisler.battleship.businessLogic.enums.PointStatus;
 import de.queisler.battleship.businessLogic.exceptions.GameException;
 import lombok.Getter;
 
-@Getter
-public class Game
+public class Game extends Thread
 {
+	@Getter
 	private Set<Player> players;
+	@Getter
 	private boolean active;
+	private Instant lastActive;
 
 	public Game()
 	{
 		players = new HashSet<>();
+
+		active = true;
+		lastActive = Instant.now();
+		this.start();
 	}
 
 	public void addPlayer(Player player) throws GameException
@@ -51,8 +59,6 @@ public class Game
 
 		for (Player p : players)
 			p.setHitMap(new FieldMap());
-
-		active = true;
 	}
 
 	public boolean isReady()
@@ -68,6 +74,8 @@ public class Game
 
 	public AttackResult attack(Player attacker, Point point) throws GameException
 	{
+		lastActive = Instant.now();
+
 		if (isReady() && determineWinner() == null)
 		{
 			Player opponent = null;
@@ -113,5 +121,24 @@ public class Game
 		}
 		active = false;
 		return winner;
+	}
+
+	@Override
+	public void run()
+	{
+		while (true)
+		{
+			Duration between = Duration.between(lastActive, Instant.now());
+			if (between.toMinutes() > 5)
+				this.active = false;
+			try
+			{
+				Thread.sleep(5000);
+			}
+			catch (InterruptedException e)
+			{
+				Thread.currentThread().interrupt();
+			}
+		}
 	}
 }

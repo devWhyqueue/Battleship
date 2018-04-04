@@ -5,7 +5,7 @@ import java.util.List;
 
 import de.queisler.battleship.businessLogic.exceptions.GameException;
 
-public class GameManagement
+public class GameManagement extends Thread
 {
 	private List<Game> games;
 
@@ -40,5 +40,26 @@ public class GameManagement
 			if (g.containsPlayer(player))
 				return g;
 		throw new GameException("This player has no active games!");
+	}
+
+	@Override
+	public void run()
+	{
+		while (true)
+		{
+			for (Game g : games)
+			{
+				if (!g.isActive())
+					games.remove(g);
+			}
+			try
+			{
+				Thread.sleep(5000);
+			}
+			catch (InterruptedException e)
+			{
+				Thread.currentThread().interrupt();
+			}
+		}
 	}
 }
