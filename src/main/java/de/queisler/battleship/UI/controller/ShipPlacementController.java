@@ -32,6 +32,7 @@ import de.queisler.battleship.businessLogic.model.Ship;
 @Controller()
 public class ShipPlacementController
 {
+	// TODO: POST ShipType
 	// TODO: Ship design/naming via CSS
 	@Autowired
 	private GameManagement gameManagement;

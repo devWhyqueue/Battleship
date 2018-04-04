@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import de.queisler.battleship.businessLogic.model.Player;
 public class LobbyController
 {
 	@Autowired
+	@Lazy
 	private GameManagement gameManagement;
 
 	private Map<String, Player> players = new HashMap<>();

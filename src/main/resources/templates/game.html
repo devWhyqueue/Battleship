@@ -6,6 +6,8 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+  <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
   <!-- Background animation -->
@@ -14,7 +16,7 @@
   <link rel="icon" th:href="@{/img/favicon.ico}" />
   <!-- Timer animation -->
   <link rel="stylesheet" th:href="@{/css/timer.css}" />
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <title>Battleship</title>
 
   <style>
@@ -36,10 +38,9 @@
 </head>
 
 <body>
-  <!-- Background animation
-  <div class="ocean">
-    <div class="wave"></div>
-    <div class="wave"></div>
+  <!-- Background animation <div class="ocean">
+  <div class="wave"></div>
+  <div class="wave"></div>
   </div>-->
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -51,22 +52,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="./home.html">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./lobby.html">Lobby</a>
+              <a class="nav-link" th:href="@{/lobby}">Lobby</a>
               <!-- SET PROPER LINK -->
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./profile.html">Profile</a>
+              <a class="nav-link" th:href="@{/profile}">Profile</a>
               <!-- SET PROPER LINK -->
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./about.html">About</a>
+              <a class="nav-link" th:href="@{/about}">About</a>
             </li>
           </ul>
-          <button class="btn btn-outline-danger btn-lg my-2 my-sm-0 invisible" type="submit">Logout</button>
-          <!-- DYNAMICALLY ENABLE/DISABLE IT -->
+          <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout" class="btn btn-outline-danger btn-lg my-2 my-sm-0" />
+          </form>
         </div>
       </div>
     </nav>
@@ -92,219 +94,31 @@
       </div>
     </div>
     <div class="row">
-      <h2 class="col-lg-3">Your ships</h2>
-      <h2 class="col-lg-3 offset-6">Attack opponent</h2>
+      <h2 class="col-md-6">Your ships</h2>
+      <h2 class="col-md-3 offset-1">Attack opponent</h2>
     </div>
     <div style="height:90%;" class="row">
       <div class="grid-container col-sm-5 mt-5">
-        <div id="s1" class="grid-item" data-toggle="modal" data-target="#postGame"></div>
-        <div id="s2" class="grid-item"></div>
-        <div id="s3" class="grid-item"></div>
-        <div id="s4" class="grid-item"></div>
-        <div id="s5" class="grid-item"></div>
-        <div id="s6" class="grid-item"></div>
-        <div id="s7" class="grid-item"></div>
-        <div id="s8" class="grid-item"></div>
-        <div id="s9" class="grid-item"></div>
-        <div id="s10" class="grid-item"></div>
-        <div id="s11" class="grid-item"></div>
-        <div id="s12" class="grid-item"></div>
-        <div id="s13" class="grid-item"></div>
-        <div id="s14" class="grid-item"></div>
-        <div id="s15" class="grid-item"></div>
-        <div id="s16" class="grid-item"></div>
-        <div id="s17" class="grid-item"></div>
-        <div id="s18" class="grid-item"></div>
-        <div id="s19" class="grid-item"></div>
-        <div id="s20" class="grid-item"></div>
-        <div id="s21" class="grid-item"></div>
-        <div id="s22" class="grid-item"></div>
-        <div id="s23" class="grid-item"></div>
-        <div id="s24" class="grid-item"></div>
-        <div id="s25" class="grid-item"></div>
-        <div id="s26" class="grid-item"></div>
-        <div id="s27" class="grid-item"></div>
-        <div id="s28" class="grid-item"></div>
-        <div id="s29" class="grid-item"></div>
-        <div id="s30" class="grid-item"></div>
-        <div id="s31" class="grid-item"></div>
-        <div id="s32" class="grid-item"></div>
-        <div id="s33" class="grid-item"></div>
-        <div id="s34" class="grid-item"></div>
-        <div id="s35" class="grid-item"></div>
-        <div id="s36" class="grid-item"></div>
-        <div id="s37" class="grid-item"></div>
-        <div id="s38" class="grid-item"></div>
-        <div id="s39" class="grid-item"></div>
-        <div id="s40" class="grid-item"></div>
-        <div id="s41" class="grid-item"></div>
-        <div id="s42" class="grid-item"></div>
-        <div id="s43" class="grid-item"></div>
-        <div id="s44" class="grid-item"></div>
-        <div id="s45" class="grid-item"></div>
-        <div id="s46" class="grid-item"></div>
-        <div id="s47" class="grid-item"></div>
-        <div id="s48" class="grid-item"></div>
-        <div id="s49" class="grid-item"></div>
-        <div id="s50" class="grid-item"></div>
-        <div id="s51" class="grid-item"></div>
-        <div id="s52" class="grid-item"></div>
-        <div id="s53" class="grid-item"></div>
-        <div id="s54" class="grid-item"></div>
-        <div id="s55" class="grid-item"></div>
-        <div id="s56" class="grid-item"></div>
-        <div id="s57" class="grid-item"></div>
-        <div id="s58" class="grid-item"></div>
-        <div id="s59" class="grid-item"></div>
-        <div id="s60" class="grid-item"></div>
-        <div id="s61" class="grid-item"></div>
-        <div id="s62" class="grid-item"></div>
-        <div id="s63" class="grid-item"></div>
-        <div id="s64" class="grid-item"></div>
-        <div id="s65" class="grid-item"></div>
-        <div id="s66" class="grid-item"></div>
-        <div id="s67" class="grid-item"></div>
-        <div id="s68" class="grid-item"></div>
-        <div id="s69" class="grid-item"></div>
-        <div id="s70" class="grid-item"></div>
-        <div id="s71" class="grid-item"></div>
-        <div id="s72" class="grid-item"></div>
-        <div id="s73" class="grid-item"></div>
-        <div id="s74" class="grid-item"></div>
-        <div id="s75" class="grid-item"></div>
-        <div id="s76" class="grid-item"></div>
-        <div id="s77" class="grid-item"></div>
-        <div id="s78" class="grid-item"></div>
-        <div id="s79" class="grid-item"></div>
-        <div id="s80" class="grid-item"></div>
-        <div id="s81" class="grid-item"></div>
-        <div id="s82" class="grid-item"></div>
-        <div id="s83" class="grid-item"></div>
-        <div id="s84" class="grid-item"></div>
-        <div id="s85" class="grid-item"></div>
-        <div id="s86" class="grid-item"></div>
-        <div id="s87" class="grid-item"></div>
-        <div id="s88" class="grid-item"></div>
-        <div id="s89" class="grid-item"></div>
-        <div id="s90" class="grid-item"></div>
-        <div id="s91" class="grid-item"></div>
-        <div id="s92" class="grid-item"></div>
-        <div id="s93" class="grid-item"></div>
-        <div id="s94" class="grid-item"></div>
-        <div id="s95" class="grid-item"></div>
-        <div id="s96" class="grid-item"></div>
-        <div id="s97" class="grid-item"></div>
-        <div id="s98" class="grid-item"></div>
-        <div id="s99" class="grid-item"></div>
-        <div id="s100" class="grid-item"></div>
+        <th:block th:each="p : ${myPoints}" th:switch="${p}">
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_BATTLESHIP}" class="grid-item" style="background: green;"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_CRUISER}" class="grid-item" style="background: yellow;"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_SUBMARINE}" class="grid-item" style="background: red;"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_DESTROYER}" class="grid-item" style="background: black;"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_CARRIER}" class="grid-item" style="background: magenta;"></div>
+          <div th:case="*" class="grid-item"></div>
+        </th:block>
       </div>
       <div id="timer" class="col-lg-1 wrapper">
         <div class="pie spinner"></div>
         <div class="pie filler"></div>
         <div class="mask"></div>
       </div>
-      <div class="grid-container col-sm-5 ml-2 mt-5">
-        <!--HANDLE ITEM CLICKS WITH THYMELEAF -->
-        <div id="o1" class="grid-item"></div>
-        <div id="o2" class="grid-item"></div>
-        <div id="o3" class="grid-item"></div>
-        <div id="o4" class="grid-item"></div>
-        <div id="o5" class="grid-item"></div>
-        <div id="o6" class="grid-item"></div>
-        <div id="o7" class="grid-item"></div>
-        <div id="o8" class="grid-item"></div>
-        <div id="o9" class="grid-item"></div>
-        <div id="o10" class="grid-item"></div>
-        <div id="o11" class="grid-item"></div>
-        <div id="o12" class="grid-item"></div>
-        <div id="o13" class="grid-item"></div>
-        <div id="o14" class="grid-item"></div>
-        <div id="o15" class="grid-item"></div>
-        <div id="o16" class="grid-item"></div>
-        <div id="o17" class="grid-item"></div>
-        <div id="o18" class="grid-item"></div>
-        <div id="o19" class="grid-item"></div>
-        <div id="o20" class="grid-item"></div>
-        <div id="o21" class="grid-item"></div>
-        <div id="o22" class="grid-item"></div>
-        <div id="o23" class="grid-item"></div>
-        <div id="o24" class="grid-item"></div>
-        <div id="o25" class="grid-item"></div>
-        <div id="o26" class="grid-item"></div>
-        <div id="o27" class="grid-item"></div>
-        <div id="o28" class="grid-item"></div>
-        <div id="o29" class="grid-item"></div>
-        <div id="o30" class="grid-item"></div>
-        <div id="o31" class="grid-item"></div>
-        <div id="o32" class="grid-item"></div>
-        <div id="o33" class="grid-item"></div>
-        <div id="o34" class="grid-item"></div>
-        <div id="o35" class="grid-item"></div>
-        <div id="o36" class="grid-item"></div>
-        <div id="o37" class="grid-item"></div>
-        <div id="o38" class="grid-item"></div>
-        <div id="o39" class="grid-item"></div>
-        <div id="o40" class="grid-item"></div>
-        <div id="o41" class="grid-item"></div>
-        <div id="o42" class="grid-item"></div>
-        <div id="o43" class="grid-item"></div>
-        <div id="o44" class="grid-item"></div>
-        <div id="o45" class="grid-item"></div>
-        <div id="o46" class="grid-item"></div>
-        <div id="o47" class="grid-item"></div>
-        <div id="o48" class="grid-item"></div>
-        <div id="o49" class="grid-item"></div>
-        <div id="o50" class="grid-item"></div>
-        <div id="o51" class="grid-item"></div>
-        <div id="o52" class="grid-item"></div>
-        <div id="o53" class="grid-item"></div>
-        <div id="o54" class="grid-item"></div>
-        <div id="o55" class="grid-item"></div>
-        <div id="o56" class="grid-item"></div>
-        <div id="o57" class="grid-item"></div>
-        <div id="o58" class="grid-item"></div>
-        <div id="o59" class="grid-item"></div>
-        <div id="o60" class="grid-item"></div>
-        <div id="o61" class="grid-item"></div>
-        <div id="o62" class="grid-item"></div>
-        <div id="o63" class="grid-item"></div>
-        <div id="o64" class="grid-item"></div>
-        <div id="o65" class="grid-item"></div>
-        <div id="o66" class="grid-item"></div>
-        <div id="o67" class="grid-item"></div>
-        <div id="o68" class="grid-item"></div>
-        <div id="o69" class="grid-item"></div>
-        <div id="o70" class="grid-item"></div>
-        <div id="o71" class="grid-item"></div>
-        <div id="o72" class="grid-item"></div>
-        <div id="o73" class="grid-item"></div>
-        <div id="o74" class="grid-item"></div>
-        <div id="o75" class="grid-item"></div>
-        <div id="o76" class="grid-item"></div>
-        <div id="o77" class="grid-item"></div>
-        <div id="o78" class="grid-item"></div>
-        <div id="o79" class="grid-item"></div>
-        <div id="o80" class="grid-item"></div>
-        <div id="o81" class="grid-item"></div>
-        <div id="o82" class="grid-item"></div>
-        <div id="o83" class="grid-item"></div>
-        <div id="o84" class="grid-item"></div>
-        <div id="o85" class="grid-item"></div>
-        <div id="o86" class="grid-item"></div>
-        <div id="o87" class="grid-item"></div>
-        <div id="o88" class="grid-item"></div>
-        <div id="o89" class="grid-item"></div>
-        <div id="o90" class="grid-item"></div>
-        <div id="o91" class="grid-item"></div>
-        <div id="o92" class="grid-item"></div>
-        <div id="o93" class="grid-item"></div>
-        <div id="o94" class="grid-item"></div>
-        <div id="o95" class="grid-item"></div>
-        <div id="o96" class="grid-item"></div>
-        <div id="o97" class="grid-item"></div>
-        <div id="o98" class="grid-item"></div>
-        <div id="o99" class="grid-item"></div>
-        <div id="o100" class="grid-item"></div>
+      <div id="enemyFieldMap" class="grid-container col-sm-5 ml-2 mt-5">
+        <th:block th:fragment="enemyFieldMap" th:each="p, iter : ${opPoints}" th:switch="${p}">
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).UNKNOWN}" th:attr="data-point=${iter.index}" class="grid-item" onclick="attack(this)"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).WATER}" class="grid-item" style="background:blue;"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP}" class="grid-item" style="background: green;"></div>
+        </th:block>
       </div>
     </div>
   </main>
@@ -312,6 +126,29 @@
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script type="text/javascript">
     document.getElementById("timer").style.visibility = "hidden";
+
+    function attack(e) {
+      var ajaxdata = parseInt(e.dataset.point);
+      var value = 'attack=' + ajaxdata;
+      var token = $('#_csrf').attr('content');
+      var header = $('#_csrf_header').attr('content');
+      $.ajax({
+        url: "/game",
+        type: "post",
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader(header, token);
+        },
+        data: value,
+        cache: false,
+        success: function(result) {
+          var url = '/game?enemyFieldMap';
+          $("#enemyFieldMap").load(url);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          alert(XMLHttpRequest.responseText);
+        }
+      });
+    }
 
     function startTimer() {
       $('#timer').load(document.URL + ' #timer');
