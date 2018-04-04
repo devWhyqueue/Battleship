@@ -1,57 +1,66 @@
 package de.queisler.battleship.businessLogic.model;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 import de.queisler.battleship.businessLogic.enums.AttackResult;
 import de.queisler.battleship.businessLogic.enums.PointStatus;
 import de.queisler.battleship.businessLogic.exceptions.GameException;
+import lombok.Getter;
 
+@Getter
 public class Game
 {
-	private java.util.Map<Player, HitMap> players;
+	private Set<Player> players;
+	private boolean active;
 
 	public Game()
 	{
-		players = new HashMap<>();
+		players = new HashSet<>();
 	}
 
 	public void addPlayer(Player player) throws GameException
 	{
 		if (players.size() == 2)
 			throw new GameException("Es sind bereits zwei Spieler im Spiel!");
-		else if (players.containsKey(player))
+		if (players.contains(player))
 			throw new GameException("Dieser Spieler befindet sich bereits im Spiel!");
-		else
-			players.put(player, new HitMap());
+
+		players.add(player);
 	}
 
 	public void removePlayer(Player player) throws GameException
 	{
-		if (players.containsKey(player))
-		{
-			players.remove(player);
-		}
-		else
+		if (!players.contains(player))
 			throw new GameException("Dieser Spieler befindet sich nicht im Spiel!");
+
+		players.remove(player);
 	}
 
 	public boolean containsPlayer(Player player)
 	{
-		return players.containsKey(player);
+		return players.contains(player);
 	}
 
-	public Set<Player> getPlayers()
+	public void startGame() throws GameException
 	{
-		return players.keySet();
+		if (!isReady())
+			throw new GameException("Spieler sind noch nicht bereit!");
+		if (active)
+			throw new GameException("Spiel läuft bereits!");
+
+		for (Player p : players)
+			p.setHitMap(new FieldMap());
+
+		active = true;
 	}
 
 	public boolean isReady()
 	{
 		boolean ready = players.size() == 2;
-		for (java.util.Map.Entry<Player, HitMap> entry : players.entrySet())
+		for (Player p : players)
 		{
-			if (entry.getKey().getFleet() == null || !entry.getKey().getFleet().isReady())
+			if (p.getFleet() == null || !p.getFleet().isReady())
 				ready = false;
 		}
 		return ready;
@@ -61,23 +70,24 @@ public class Game
 	{
 		if (isReady() && determineWinner() == null)
 		{
-			for (java.util.Map.Entry<Player, HitMap> entry : players.entrySet())
+			Player opponent = null;
+			for (Player p : players)
 			{
-				if (!entry.getKey().equals(attacker))
-				{
-					if (entry.getValue().getStatus(point) == PointStatus.UNKNOWN)
-					{
-						AttackResult result = entry.getKey().getFleet().attack(point);
-						if (result == AttackResult.MISS)
-							entry.getValue().setStatus(point, PointStatus.WATER);
-						else
-							entry.getValue().setStatus(point, PointStatus.SHIP);
-
-						return result;
-					}
-					throw new GameException("Dieser Punkt wurde bereits attackiert!");
-				}
+				if (!p.equals(attacker))
+					opponent = p;
 			}
+
+			if (attacker.getHitMap().getStatus(point) == PointStatus.UNKNOWN)
+			{
+				AttackResult result = opponent.getFleet().attack(point);
+				if (result == AttackResult.MISS)
+					attacker.getHitMap().setStatus(point, PointStatus.WATER);
+				else
+					attacker.getHitMap().setStatus(point, PointStatus.SHIP);
+
+				return result;
+			}
+			throw new GameException("Dieser Punkt wurde bereits attackiert!");
 		}
 		else
 		{
@@ -86,22 +96,22 @@ public class Game
 			else
 				throw new GameException("Das Spiel ist bereits zuende!");
 		}
-		throw new GameException("Ein unbekannter Fehler ist aufgetreten!");
 	}
 
 	public Player determineWinner()
 	{
 		Player winner = null;
-		for (java.util.Map.Entry<Player, HitMap> entry : players.entrySet())
+		for (Player p : players)
 		{
-			if (entry.getKey().getFleet().isAlive())
+			if (p.getFleet().isAlive())
 			{
 				if (winner == null)
-					winner = entry.getKey();
+					winner = p;
 				else
 					return null;
 			}
 		}
+		active = false;
 		return winner;
 	}
 }

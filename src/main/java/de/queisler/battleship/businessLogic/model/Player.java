@@ -43,6 +43,8 @@ public class Player extends User
 	private String lastName;
 	@Transient
 	private Fleet fleet;
+	@Transient
+	private FieldMap hitMap;
 
 	public Player(String username, String password)
 	{

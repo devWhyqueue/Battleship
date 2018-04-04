@@ -5,13 +5,17 @@ import java.util.List;
 
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.enums.AttackResult;
+import de.queisler.battleship.businessLogic.enums.PointStatus;
 import de.queisler.battleship.businessLogic.exceptions.FleetException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPositionException;
+import lombok.Getter;
 
+@Getter
 public class Fleet
 {
 	private List<Ship> ships;
+	private FieldMap shipMap;
 
 	public Fleet()
 	{
@@ -75,6 +79,18 @@ public class Fleet
 		}
 	}
 
+	public FieldMap getShipMap()
+	{
+		shipMap = new FieldMap();
+		for (Ship s : ships)
+		{
+			List<Point> pts = s.getPosition().getPoints();
+			for (Point pt : pts)
+				shipMap.setStatus(pt, PointStatus.getByShipType(s.getShipType()));
+		}
+		return shipMap;
+	}
+
 	public AttackResult attack(Point point)
 	{
 		for (Ship s : ships)
@@ -86,7 +102,7 @@ public class Fleet
 				if (!s.getPosition().allHit())
 					return AttackResult.HIT;
 				else if (s.getPosition().allHit() && isAlive())
-					return AttackResult.SUNK;
+					return AttackResult.build(s.getShipType());
 				else
 					return AttackResult.LOST;
 			}
