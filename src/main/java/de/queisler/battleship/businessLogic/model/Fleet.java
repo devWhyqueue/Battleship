@@ -6,6 +6,7 @@ import java.util.List;
 import de.queisler.battleship.businessLogic.enums.Alignment;
 import de.queisler.battleship.businessLogic.enums.AttackResult;
 import de.queisler.battleship.businessLogic.enums.PointStatus;
+import de.queisler.battleship.businessLogic.enums.ShipType;
 import de.queisler.battleship.businessLogic.exceptions.FleetException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPointException;
 import de.queisler.battleship.businessLogic.exceptions.InvalidPositionException;
@@ -63,6 +64,16 @@ public class Fleet
 	public boolean containsShip(Ship ship)
 	{
 		return ships.contains(ship);
+	}
+
+	public Ship getShip(ShipType shipType)
+	{
+		for (Ship s : ships)
+		{
+			if (s.getShipType() == shipType)
+				return s;
+		}
+		return null;
 	}
 
 	public void changeShipPostion(Ship ship, Point startPoint, Alignment alignment)

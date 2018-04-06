@@ -115,6 +115,7 @@ public class LobbyController
 		return new GameManagement();
 	}
 
+	// TODO: Move to own class and handle all redirects
 	@EventListener
 	public void handleLobbyEvents(ServletRequestHandledEvent e)
 	{

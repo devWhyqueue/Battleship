@@ -2,16 +2,21 @@ package de.queisler.battleship.businessLogic.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import de.queisler.battleship.businessLogic.exceptions.GameException;
 
-public class GameManagement extends Thread
+public class GameManagement
 {
 	private List<Game> games;
+	private GameCleanUpThread cleanUpThread;
 
 	public GameManagement()
 	{
-		this.games = new ArrayList<>();
+		games = new ArrayList<>();
+		cleanUpThread = new GameCleanUpThread();
+
+		cleanUpThread.start();
 	}
 
 	public void addGame(Game game) throws GameException
@@ -42,23 +47,26 @@ public class GameManagement extends Thread
 		throw new GameException("This player has no active games!");
 	}
 
-	@Override
-	public void run()
+	private class GameCleanUpThread extends Thread
 	{
-		while (true)
+		@Override
+		public void run()
 		{
-			for (Game g : games)
+			while (true)
 			{
-				if (!g.isActive())
-					games.remove(g);
-			}
-			try
-			{
-				Thread.sleep(5000);
-			}
-			catch (InterruptedException e)
-			{
-				Thread.currentThread().interrupt();
+				for (Game g : games)
+				{
+					if (!g.isActive())
+						games.remove(g);
+				}
+				try
+				{
+					Thread.sleep(TimeUnit.MINUTES.toMillis(2));
+				}
+				catch (InterruptedException e)
+				{
+					Thread.currentThread().interrupt();
+				}
 			}
 		}
 	}
