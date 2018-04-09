@@ -2,51 +2,36 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <!-- Required meta tags -->
+  <!-- meta tags -->
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
   <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
-  <!-- Bootstrap CSS -->
+  <!-- stylesheets -->
   <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-  <!-- Background animation -->
   <link rel="stylesheet" th:href="@{/css/background.css}" />
-  <!-- Favicon -->
-  <link rel="icon" th:href="@{/img/favicon.ico}" />
-  <!-- Timer animation -->
   <link rel="stylesheet" th:href="@{/css/timer.css}" />
+  <link rel="stylesheet" th:href="@{/css/grid.css}" />
+  <!-- scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <!-- favicon and title -->
+  <link rel="icon" th:href="@{/img/favicon.ico}" />
   <title>Battleship</title>
-
-  <style>
-    .grid-container {
-      display: grid;
-      grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
-      background-color: #2196F3;
-      padding: 10px;
-    }
-
-    .grid-item {
-      background-color: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(0, 0, 0, 0.8);
-      font-weight: bold;
-      font-size: 2vw;
-      text-align: center;
-    }
-  </style>
 </head>
 
 <body>
-  <!-- Background animation <div class="ocean">
+  <!-- Background animation
+  <div class="ocean">
   <div class="wave"></div>
   <div class="wave"></div>
-  </div>-->
+  </div> -->
+  <!-- navbar -->
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Battleship</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -56,11 +41,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/lobby}">Lobby</a>
-              <!-- SET PROPER LINK -->
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/profile}">Profile</a>
-              <!-- SET PROPER LINK -->
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/about}">About</a>
@@ -74,31 +57,12 @@
     </nav>
   </header>
   <main style="height:80%;" role="main" class="container col-10 mt-5">
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Game Result</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          </div>
-          <div class="modal-body">
-            <p id="modalText"> DEFAULT </p>
-          </div>
-          <div class="modal-footer">
-            <button onclick="location.href='lobby';return false;" type="button" class="btn btn-primary">End game</button>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="row">
       <h2 class="col-md-6">Your ships</h2>
-      <h2 class="col-md-3 offset-1">Attack opponent</h2>
+      <h2 class="col-md-3 ml-3">Attack opponent</h2>
     </div>
-    <div class="row text-danger">
-      <h2 id="resultMsg" class="col-md-3 offset-7"></h2>
+    <div class="row">
+      <h2 id="resultMsg" class="col-md-3 offset-7 text-danger"></h2>
     </div>
     <div style="height:90%;" class="row">
       <div class="grid-container col-sm-5 mt-5 mr-2">
@@ -123,84 +87,32 @@
         </th:block>
       </div>
     </div>
-    <div id="turnStatus">
+    <div id="turnStatus" />
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="gameResultModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="gameResultModalLongTitle">Game Result</h5>
+            <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+          </div>
+          <div class="modal-body">
+            <p id="modalText"></p>
+          </div>
+          <div class="modal-footer">
+            <button onclick="location.href='lobby';return false;" type="button" class="btn btn-primary">End game</button>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- scripts -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.4/hammer.min.js'></script>
   <script type="text/javascript" th:src="@{/js/timer.js}"></script>
-  <script type="text/javascript">
-    var mapDisabled = true;
-    var timer = new Timer(30000, document.getElementById('countdown'));
-
-    function attack(e) {
-      if (!mapDisabled) {
-        var ajaxdata = parseInt(e.dataset.point);
-        var value = 'attack=' + ajaxdata;
-        var token = $('#_csrf').attr('content');
-        var header = $('#_csrf_header').attr('content');
-
-        timer.reset();
-        $.ajax({
-          url: "/game",
-          type: "post",
-          beforeSend: function(xhr) {
-            xhr.setRequestHeader(header, token);
-          },
-          data: value,
-          cache: false,
-          success: function(data, textStatus, jqXHR) {
-            $('#resultMsg').text('');
-            var url = '/game?enemyFieldMap';
-            $("#enemyFieldMap").load(url);
-            if (jqXHR.status == 213) {
-              $('#resultMsg').text(jqXHR.responseText);
-              startTimer();
-            } else if (jqXHR.status == 214) {
-              $('#exampleModalCenter').on('show.bs.modal', function(e) {
-                document.getElementById("modalText").innerHTML = jqXHR.responseText;
-              });
-              $("#exampleModalCenter").modal();
-            } else if (jqXHR.status == 215) {
-              startTimer();
-            }
-          },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {
-            alert(XMLHttpRequest.responseText);
-          }
-        });
-      }
-    }
-
-    function updateTurnStatus() {
-      var url = '/game?updateTurnStatus';
-      $("#turnStatus").load(url, function(response, status, xhr) {
-        if (xhr.status == 210) {
-          $('#exampleModalCenter').on('show.bs.modal', function(e) {
-            document.getElementById("modalText").innerHTML = 'You lost! Good luck next time!';
-          });
-          $("#exampleModalCenter").modal();
-        } else if (xhr.status == 211 && mapDisabled) {
-          startTimer();
-          mapDisabled = false;
-        } else if (xhr.status == 212 && !mapDisabled) {
-          timer.reset();
-          mapDisabled = true;
-          //document.getElementById("enemyFieldMap").disabled = true;
-        }
-      });
-    }
-
-    setInterval(function() {
-      updateTurnStatus(); // this will run after every second
-    }, 1000);
-
-    function startTimer() {
-      timer.reset();
-      timer.start();
-    }
-  </script>
+  <script type="text/javascript" th:src="@{/js/game.js}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 </body>
