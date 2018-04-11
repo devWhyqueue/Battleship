@@ -2,46 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <!-- Required meta tags -->
+  <!-- meta tags -->
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Bootstrap CSS -->
+  <!-- stylesheets -->
   <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-  <!-- Background animation -->
   <link rel="stylesheet" th:href="@{/css/background.css}" />
-  <!-- Favicon -->
-  <link rel="icon" th:href="@{/img/favicon.ico}" />
-
+  <!-- scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <!-- favicon and title -->
+  <link rel="icon" th:href="@{/img/favicon.ico}" />
   <title>Battleship</title>
 </head>
 
 <body>
   <!-- Background animation
   <div class="ocean">
-    <div class="wave"></div>
-    <div class="wave"></div>
-  </div>-->
+  <div class="wave"></div>
+  <div class="wave"></div>
+  </div> -->
+  <!-- navbar -->
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Battleship</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" th:href="@{/}">Home</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" th:href="@{/lobby}">Lobby</a>
-              <!-- SET PROPER LINK -->
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/profile}">Profile</a>
-              <!-- SET PROPER LINK -->
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/about}">About</a>
@@ -55,26 +53,6 @@
     </nav>
   </header>
   <main style="height:75%;" role="main" class="container mt-5">
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Game Invitation</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          </div>
-          <div class="modal-body">
-            <p id="modalText"> DEFAULT </p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button onclick="location.href='lobby?invite='+user;return false;" type="button" class="btn btn-primary">Send</button>
-          </div>
-        </div>
-      </div>
-    </div>
     <div style="height:75%;" class="row">
       <div class="col-sm-10 mx-auto">
         <div class="jumbotron">
@@ -89,7 +67,7 @@
             </thead>
             <tbody>
               <div th:each="p : ${players}">
-                <tr data-toggle="modal" data-target="#exampleModalCenter" th:data-user="${p.username}">
+                <tr data-toggle="modal" data-target="#gameInvite" th:data-user="${p.username}">
                   <td th:text="${p.username}">mark134</td>
                   <td th:text="${p.firstName}">Mark</td>
                   <td th:text="${p.lastName}">Otto</td>
@@ -109,13 +87,26 @@
               </script>
             </div>
           </div>
-          <script>
-            var user;
-            $('#exampleModalCenter').on('show.bs.modal', function(e) {
-              user = e.relatedTarget.dataset.user;
-              document.getElementById("modalText").innerHTML = "Do you really want to send an invite to " + user.bold() + "?";
-            });
-          </script>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="gameInvite" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="gameInviteLongTitle">Game Invitation</h5>
+            <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+          </div>
+          <div class="modal-body">
+            <p id="modalText"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button onclick="location.href='lobby?invite='+user;return false;" type="button" class="btn btn-primary">Send</button>
+          </div>
         </div>
       </div>
     </div>
@@ -143,31 +134,10 @@
     <!--/.Copyright-->
   </footer>
   <!--/.Footer-->
-  <script type="text/javascript">
-    function reloadTable() {
-      var url = '/lobby?updateTable';
-      $("#playerTable").load(url);
-    }
-
-    function reloadInvitations() {
-      var url = '/lobby?checkInvitations';
-      $("#invitations").load(url);
-    }
-
-    function reloadAcceptedInvitations() {
-      var url = '/lobby?checkAcceptedInvitations';
-      $("#acceptedInvitations").load(url);
-    }
-    setInterval(function() {
-      reloadTable();
-      reloadInvitations();
-      reloadAcceptedInvitations(); // this will run after every 5 seconds
-    }, 5000);
-  </script>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/lobby.js}"></script>
 </body>
 
 </html>
