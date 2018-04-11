@@ -2,15 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <!-- Required meta tags -->
+  <!-- meta tags -->
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Bootstrap CSS -->
+  <!-- stylesheets -->
   <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-  <!-- Background animation -->
   <link rel="stylesheet" th:href="@{/css/background.css}" />
-  <!-- Favicon -->
+  <!-- favicon and title -->
   <link rel="icon" th:href="@{/img/favicon.ico}" />
   <title>Battleship</title>
 </head>
@@ -18,32 +17,30 @@
 <body>
   <!-- Background animation
   <div class="ocean">
-    <div class="wave"></div>
-    <div class="wave"></div>
-  </div>-->
+  <div class="wave"></div>
+  <div class="wave"></div>
+  </div> -->
+  <!-- navbar -->
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Battleship</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="./home.html">Home <span class="sr-only">(current)</span></a>
-              <!-- SET DYNAMIC LINK (VISITOR/USER) -->
+              <a class="nav-link" th:href="@{/}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./lobby.html">Lobby</a>
-              <!-- SET PROPER LINK -->
+              <a class="nav-link" th:href="@{/lobby}">Lobby</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./profile.html">Profile</a>
-              <!-- SET PROPER LINK -->
+              <a class="nav-link" th:href="@{/profile}">Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./about.html">About</a>
+              <a class="nav-link" th:href="@{/about}">About</a>
             </li>
           </ul>
         </div>
@@ -68,28 +65,16 @@
           </div>
           <div class="form-row">
             <div class="form-group w-100">
-              <input type="text" minlength="3" th:field="*{username}" class="form-control" placeholder="Username"
-                     required>
+              <input type="text" minlength="3" th:field="*{username}" class="form-control" placeholder="Username" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group w-50">
-              <input type="password" id="password" minlength="5" th:field="*{password}" class="form-control"
-                     placeholder="Password" required>
+              <input type="password" id="password" minlength="5" th:field="*{password}" class="form-control" placeholder="Password" required>
             </div>
             <div class="form-group w-50">
-              <input type="password" minlength="5" class="form-control" placeholder="Confirm Password"
-                     oninput="check(this)" required>
+              <input type="password" minlength="5" class="form-control" placeholder="Confirm Password" oninput="check(this)" required>
             </div>
-            <script language="javascript" type="text/javascript">
-              function check(input) {
-                if (input.value != document.getElementById('password').value) {
-                  input.setCustomValidity('Passwörter müssen übereinstimmen!');
-                } else {
-                  input.setCustomValidity('');
-                }
-              }
-            </script>
           </div>
           <input style="background: #015871;" type="submit" value="Register" class="btn btn-info btn-block">
         </form>
@@ -119,11 +104,11 @@
     <!--/.Copyright-->
   </footer>
   <!--/.Footer-->
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- scripts -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/register.js}"></script>
 </body>
 
 </html>

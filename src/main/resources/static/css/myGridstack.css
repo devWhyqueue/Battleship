@@ -1,0 +1,10 @@
+.grid-stack {
+  background: #d1f4ff;
+  height: 505px;
+}
+
+.grid-stack-item-content {
+  color: #2c3e50;
+  text-align: center;
+  background-color: #015871;
+}

@@ -1,16 +1,16 @@
 var user;
 
-function reloadTable() {
+function updateTable() {
   var url = '/lobby?updateTable';
   $("#playerTable").load(url);
 }
 
-function reloadInvitations() {
+function updateInvitations() {
   var url = '/lobby?checkInvitations';
   $("#invitations").load(url);
 }
 
-function reloadAcceptedInvitations() {
+function updateAcceptedInvitations() {
   var url = '/lobby?checkAcceptedInvitations';
   $("#acceptedInvitations").load(url);
 }
@@ -21,7 +21,7 @@ $('#gameInvite').on('show.bs.modal', function(e) {
 });
 
 setInterval(function() {
-  reloadTable();
-  reloadInvitations();
-  reloadAcceptedInvitations(); // this will run after every 5 seconds
+  updateTable();
+  updateInvitations();
+  updateAcceptedInvitations(); // this will run after every 5 seconds
 }, 5000);
