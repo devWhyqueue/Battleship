@@ -1,6 +1,7 @@
 package de.queisler.battleship.businessLogic.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -13,7 +14,7 @@ public class GameManagement
 
 	public GameManagement()
 	{
-		games = new ArrayList<>();
+		games = Collections.synchronizedList(new ArrayList<Game>());
 		cleanUpThread = new GameCleanUpThread();
 
 		cleanUpThread.start();
