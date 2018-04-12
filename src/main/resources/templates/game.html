@@ -69,9 +69,9 @@
         <th:block th:each="p : ${myPoints}" th:switch="${p}">
           <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_BATTLESHIP}" class="grid-item" style="background: green;"></div>
           <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_CRUISER}" class="grid-item" style="background: yellow;"></div>
-          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_SUBMARINE}" class="grid-item" style="background: red;"></div>
-          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_DESTROYER}" class="grid-item" style="background: black;"></div>
-          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_CARRIER}" class="grid-item" style="background: magenta;"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_SUBMARINE}" class="grid-item" style="background: deeppink;"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_DESTROYER}" class="grid-item" style="background: orange;"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_CARRIER}" class="grid-item" style="background: purple;"></div>
           <div th:case="*" class="grid-item"></div>
         </th:block>
       </div>
@@ -83,12 +83,11 @@
         <th:block th:fragment="enemyFieldMap" th:each="p, iter : ${opPoints}" th:switch="${p}">
           <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).UNKNOWN}" th:attr="data-point=${iter.index}" class="grid-item" onclick="attack(this)"></div>
           <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).WATER}" class="grid-item" style="background:blue;"></div>
-          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP}" class="grid-item" style="background: green;"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP}" class="grid-item" style="background: red;"></div>
         </th:block>
       </div>
     </div>
     <div id="turnStatus" />
-    </div>
     <!-- Modal -->
     <div class="modal fade" id="gameResultModal" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-dialog-centered" role="document">
