@@ -40,7 +40,6 @@ public class RegistrationController
 		}
 		catch (TransactionSystemException e)
 		{
-			//TODO: JavaScript validation for IE
 			model.addAttribute("error", "Fehler! Bitte beachten Sie die Mindestlängen der Felder.");
 			return "register";
 		}
