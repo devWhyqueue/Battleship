@@ -19,10 +19,12 @@ function attack(e) {
             success: function (data, textStatus, jqXHR) {
                 var url = '/game?enemyFieldMap';
 
+                $('.alert').hide();
                 $('#resultMsg').text('');
                 $("#enemyFieldMap").load(url);
                 if (jqXHR.status == 213) { // SUNK
                     $('#resultMsg').text(jqXHR.responseText);
+                    $(".alert").show();
                     startTimer();
                 } else if (jqXHR.status == 214) { // LOST
                     $('#gameResultModal').on('show.bs.modal', function (e) {
