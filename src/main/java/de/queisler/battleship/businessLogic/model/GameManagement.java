@@ -1,74 +1,70 @@
 package de.queisler.battleship.businessLogic.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import de.queisler.battleship.businessLogic.exceptions.GameException;
 
-public class GameManagement
-{
-	private List<Game> games;
-	private GameCleanUpThread cleanUpThread;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
-	public GameManagement()
-	{
-		games = Collections.synchronizedList(new ArrayList<Game>());
-		cleanUpThread = new GameCleanUpThread();
+public class GameManagement {
+    private List<Game> games;
+    private GameCleanUpThread cleanUpThread;
 
-		cleanUpThread.start();
-	}
+    public GameManagement() {
+        games = Collections.synchronizedList(new ArrayList<Game>());
+        cleanUpThread = new GameCleanUpThread();
 
-	public void addGame(Game game) throws GameException
-	{
-		for (Game g : games)
-			for (Player p : game.getPlayers())
-				if (g.containsPlayer(p))
-					throw new GameException("A game with one of these players already exists!");
-		games.add(game);
-	}
+        cleanUpThread.start();
+    }
 
-	public void removeGame(Player player) throws GameException
-	{
-		for (Game g : games)
-			if (g.containsPlayer(player))
-			{
-				games.remove(g);
-				return;
-			}
-		throw new GameException("This player has no active games!");
-	}
+    public void addGame(Game game) throws GameException {
+        ListIterator<Game> iter = games.listIterator();
 
-	public Game getGame(Player player) throws GameException
-	{
-		for (Game g : games)
-			if (g.containsPlayer(player))
-				return g;
-		throw new GameException("This player has no active games!");
-	}
+        while (iter.hasNext()) {
+            Game g = iter.next();
+            for (Player p : game.getPlayers())
+                if (g.containsPlayer(p)) throw new GameException("A game with one of these players already exists!");
+        }
+        iter.add(game);
+    }
 
-	private class GameCleanUpThread extends Thread
-	{
-		@Override
-		public void run()
-		{
-			while (true)
-			{
-				for (Game g : games)
-				{
-					if (!g.isActive())
-						games.remove(g);
-				}
-				try
-				{
-					Thread.sleep(TimeUnit.MINUTES.toMillis(2));
-				}
-				catch (InterruptedException e)
-				{
-					Thread.currentThread().interrupt();
-				}
-			}
-		}
-	}
+    public void removeGame(Player player) throws GameException {
+        ListIterator<Game> iter = games.listIterator();
+
+        while (iter.hasNext()) {
+            Game g = iter.next();
+            if (g.containsPlayer(player)) {
+                iter.remove();
+                return;
+            }
+        }
+        throw new GameException("This player has no active games!");
+    }
+
+    public Game getGame(Player player) throws GameException {
+        ListIterator<Game> iter = games.listIterator();
+
+        while (iter.hasNext()) {
+            Game g = iter.next();
+            if (g.containsPlayer(player)) return g;
+        }
+        throw new GameException("This player has no active games!");
+    }
+
+    private class GameCleanUpThread extends Thread {
+        @Override
+        public void run() {
+            while (true) {
+                ListIterator<Game> iter = games.listIterator();
+                while (iter.hasNext()) {
+                    Game g = iter.next();
+                    if (!g.isActive()) iter.remove();
+                }
+                try {
+                    Thread.sleep(TimeUnit.MINUTES.toMillis(2));
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }
+    }
 }
