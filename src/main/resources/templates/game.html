@@ -65,13 +65,15 @@
       <h2 id="resultMsg" class="col-md-3 offset-7 text-danger"></h2>
     </div>
     <div style="height:90%;" class="row">
-      <div class="grid-container col-sm-5 mt-5 mr-2">
-        <th:block th:each="p : ${myPoints}" th:switch="${p}">
+      <div id="ownFieldMap" class="grid-container col-sm-5 mt-5 mr-2">
+        <th:block th:fragment="ownFieldMap" th:each="p : ${myPoints}" th:switch="${p}">
           <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_BATTLESHIP}" class="grid-item" style="background: green;"></div>
           <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_CRUISER}" class="grid-item" style="background: yellow;"></div>
-          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_SUBMARINE}" class="grid-item" style="background: deeppink;"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_SUBMARINE}" class="grid-item" style="background: hotpink;"></div>
           <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_DESTROYER}" class="grid-item" style="background: orange;"></div>
           <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP_CARRIER}" class="grid-item" style="background: purple;"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).SHIP}" class="grid-item" style="background: red;"></div>
+          <div th:case="${T(de.queisler.battleship.businessLogic.enums.PointStatus).WATER}" class="grid-item" style="background:blue;"></div>
           <div th:case="*" class="grid-item"></div>
         </th:block>
       </div>

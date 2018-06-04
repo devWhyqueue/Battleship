@@ -48,6 +48,32 @@ public class GameController {
         return "game";
     }
 
+    @GetMapping(value = "/game", params = "ownFieldMap")
+    public String updateOwnFieldMap(Model model) throws GameException {
+        Player p = getPlayerFromAuthentication();
+        Game g = gameManagement.getGame(p);
+        Player o = g.getOpponent(p);
+
+        PointStatus[][] advancedShipMap = p.getFleet().getShipMap().getPointStatusArray(); // own ships
+        PointStatus[][] opHitMap = o.getHitMap().getPointStatusArray(); // enemy's hit map
+        for (int row = 0; row < opHitMap.length; row++) {
+            for (int column = 0; column < opHitMap[0].length; column++) {
+                if (opHitMap[row][column] == PointStatus.SHIP && advancedShipMap[row][column].getShipType() != null) {
+                    advancedShipMap[row][column] = PointStatus.SHIP;
+                }
+                else if(opHitMap[row][column] == PointStatus.WATER){
+                    advancedShipMap[row][column] = PointStatus.WATER;
+                }
+            }
+        }
+        List<PointStatus> list = new ArrayList<>();
+        for (int i = 0; i < advancedShipMap.length; i++)
+            list.addAll(Arrays.asList(advancedShipMap[i]));
+        model.addAttribute("myPoints", list);
+
+        return "game :: ownFieldMap";
+    }
+
     @GetMapping(value = "/game", params = "enemyFieldMap")
     public String updateEnemyFieldMap(Model model) {
         Player p = getPlayerFromAuthentication();
@@ -74,7 +100,7 @@ public class GameController {
 
     @PostMapping(value = "/game")
     public ResponseEntity<?> attack(Model model, @RequestParam("attack") int pt) throws GameException,
-			InvalidPointException {
+            InvalidPointException {
         Player p = getPlayerFromAuthentication();
         Game g = gameManagement.getGame(p);
         int row = pt / 10 + 1;
@@ -83,7 +109,7 @@ public class GameController {
 
         if (r.name().startsWith("SUNK"))
             return ResponseEntity.status(213).body("You destroyed your opponent's " + g.getOpponent(p).getFleet()
-					.getShip(r.getShipType()).toString()); // DESTROYED
+                    .getShip(r.getShipType()).toString()); // DESTROYED
         else if (r == AttackResult.LOST) return ResponseEntity.status(214).body("Congratulations! You won the game!");
         else if (r == AttackResult.HIT) return ResponseEntity.status(215).build();
         else return ResponseEntity.status(216).build(); // MISS
@@ -92,10 +118,9 @@ public class GameController {
 
     @ExceptionHandler({GameException.class})
     public void handleException(Exception e) {
-        if (e.getMessage().equals("Der Gegner ist gerade am Zug!")){
+        if (e.getMessage().equals("Der Gegner ist gerade am Zug!")) {
             // unauthorized turn attempt
-        }
-        else e.printStackTrace();
+        } else e.printStackTrace();
     }
 
     private Player getPlayerFromAuthentication() {
