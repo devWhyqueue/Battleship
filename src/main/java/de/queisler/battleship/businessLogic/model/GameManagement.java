@@ -27,19 +27,6 @@ public class GameManagement {
         iter.add(game);
     }
 
-    public void removeGame(Player player) throws GameException {
-        ListIterator<Game> iter = games.listIterator();
-
-        while (iter.hasNext()) {
-            Game g = iter.next();
-            if (g.containsPlayer(player)) {
-                iter.remove();
-                return;
-            }
-        }
-        throw new GameException("This player has no active games!");
-    }
-
     public Game getGame(Player player) throws GameException {
         ListIterator<Game> iter = games.listIterator();
 

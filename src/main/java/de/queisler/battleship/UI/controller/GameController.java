@@ -28,24 +28,29 @@ public class GameController {
     private GameManagement gameManagement;
 
     @GetMapping("/game")
-    public String game(Model model) throws GameException {
-        Player p = getPlayerFromAuthentication();
-        Game g = gameManagement.getGame(p);
-        g.startGame();
+    public String game(Model model){
+        try {
+            Player p = getPlayerFromAuthentication();
+            Game g = gameManagement.getGame(p);
+            g.startGame();
 
-        PointStatus[][] shipMap = p.getFleet().getShipMap().getPointStatusArray();
-        List<PointStatus> list = new ArrayList<PointStatus>();
-        for (int i = 0; i < shipMap.length; i++)
-            list.addAll(Arrays.asList(shipMap[i]));
-        model.addAttribute("myPoints", list);
+            PointStatus[][] shipMap = p.getFleet().getShipMap().getPointStatusArray();
+            List<PointStatus> list = new ArrayList<PointStatus>();
+            for (int i = 0; i < shipMap.length; i++)
+                list.addAll(Arrays.asList(shipMap[i]));
+            model.addAttribute("myPoints", list);
 
-        PointStatus[][] hitMap = p.getHitMap().getPointStatusArray();
-        List<PointStatus> list2 = new ArrayList<PointStatus>();
-        for (int i = 0; i < hitMap.length; i++)
-            list2.addAll(Arrays.asList(hitMap[i]));
-        model.addAttribute("opPoints", list2);
+            PointStatus[][] hitMap = p.getHitMap().getPointStatusArray();
+            List<PointStatus> list2 = new ArrayList<PointStatus>();
+            for (int i = 0; i < hitMap.length; i++)
+                list2.addAll(Arrays.asList(hitMap[i]));
+            model.addAttribute("opPoints", list2);
 
-        return "game";
+            return "game";
+        }
+        catch(GameException e){
+            return "redirect:lobby";
+        }
     }
 
     @GetMapping(value = "/game", params = "ownFieldMap")
