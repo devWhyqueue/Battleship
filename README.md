@@ -1,6 +1,4 @@
-<img src="https://s3.amazonaws.com/gs-geo-images/4aef37d9-a816-4da2-8bed-0c9aa884a4d2.png" alt="Battleship" width="60%">
-
-# Battleship
+# <img src="https://s3.amazonaws.com/gs-geo-images/4aef37d9-a816-4da2-8bed-0c9aa884a4d2.png" alt="Battleship" width="30%">
 
 The well known board game brought to another level...
 
