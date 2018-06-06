@@ -1,0 +1,49 @@
+@color-primary: #30A9DE;
+@color-secondary: #30A9DE;
+@color-tertiary: #30A9DE;
+@color-primary-light: #6AAFE6;
+@color-primary-dark: #8EC0E4;
+@Distance: 1000px;
+
+#error {
+  position: relative;
+  background: #D4DFE6 ;
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #274c5e;
+}
+
+.Container {
+  text-align: center;
+  position: relative;
+}
+
+.MainGraphic {
+  position: relative;
+}
+
+.Cog {
+  width: 10rem;
+  height: 10rem;
+  fill: @color-primary-light;
+  transition: easeInOutQuint();
+  animation: CogAnimation 5s infinite;
+}
+
+.Hummingbird{
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  fill: @color-primary;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);  
+}
+
+@keyframes CogAnimation {
+    0%   {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}

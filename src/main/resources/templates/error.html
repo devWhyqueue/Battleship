@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- meta tags -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- stylesheets -->
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/background.css}" />
+  <link rel="stylesheet" th:href="@{/css/error.css}" />
+  <!-- favicon and title -->
+  <link rel="icon" th:href="@{/img/favicon.ico}" />
+  <title>Battleship</title>
+</head>
+
+<body>
+  <!-- Background animation
+  <div class="ocean">
+  <div class="wave"></div>
+  <div class="wave"></div>
+  </div> -->
+  <!-- navbar -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Battleship</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/lobby}">Lobby</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/profile}">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/about}">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main style="height:75%;" role="main" class="container mt-5">
+    <div style="height:75%;" class="row">
+      <div id="error" class="col-sm-8 mx-auto">
+        <div class="MainGraphic">
+          <svg class="Hummingbird" viewBox="0 0 55 41" xmlns="http://www.w3.org/2000/svg"><path d="M35.5 5L54.7.6H32.3L35.5 5zM12.4 40.8l10.3-10.1-6.2-6.7-4.1 16.8zM33.8 5.3L30.5.8l-5.4 4 8.7.5zM20.8 4.6L8.8 0l1.9 4.1 10.1.5zM0 5l15.2 15.4 7.5-14.2L0 5zM34.2 6.8l-9.9-.5-8 15.2 7.4 8.1 8-7.9 2.5-14.9z"/></svg>
+          <svg class="Cog" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M29.18 19.07c-1.678-2.908-.668-6.634 2.256-8.328L28.29 5.295c-.897.527-1.942.83-3.057.83-3.36 0-6.085-2.743-6.085-6.126h-6.29c.01 1.043-.25 2.102-.81 3.07-1.68 2.907-5.41 3.896-8.34 2.21L.566 10.727c.905.515 1.69 1.268 2.246 2.234 1.677 2.904.673 6.624-2.24 8.32l3.145 5.447c.895-.522 1.935-.82 3.044-.82 3.35 0 6.066 2.725 6.083 6.092h6.29c-.004-1.035.258-2.08.81-3.04 1.676-2.902 5.4-3.893 8.325-2.218l3.145-5.447c-.9-.515-1.678-1.266-2.232-2.226zM16 22.48c-3.578 0-6.48-2.902-6.48-6.48S12.423 9.52 16 9.52c3.578 0 6.48 2.902 6.48 6.48s-2.902 6.48-6.48 6.48z"/></svg>
+        </div>
+        <div style="margin-left: 10px">
+          <h1>An error has occured</h1>
+          <span>You will be redirected to the lobby in a few moments ...</span>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!--Footer-->
+  <footer class="page-footer blue center-on-small-only">
+    <!--Footer Links-->
+    <div class="container-fluid">
+      <div class="row">
+        <!--First column-->
+        <div class="col-md-6">
+          <h5 class="title">Whyqueue Games</h5>
+          <p>This website is open source. You can download all my projects from Github.</p>
+        </div>
+        <!--/.First column-->
+      </div>
+    </div>
+    <!--/.Footer Links-->
+    <!--Copyright-->
+    <div class="footer-copyright">
+      <div class="container-fluid">
+        © 2018 Copyright: <a href="https://github.com/devWhyqueue"> devWhyqueue </a>
+      </div>
+    </div>
+    <!--/.Copyright-->
+  </footer>
+  <!--/.Footer-->
+  <!-- scripts -->
+  <script>
+    setTimeout(function() {
+      window.location.href = "/lobby";
+    }, 3000);
+  </script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+
+</html>
