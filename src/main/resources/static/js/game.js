@@ -1,3 +1,4 @@
+var gameFinished = false;
 var hitMapDisabled = true;
 var timer = new Timer(30000, document.getElementById('countdown'));
 
@@ -27,6 +28,7 @@ function attack(e) {
                     $(".alert").show();
                     startTimer();
                 } else if (jqXHR.status == 214) { // LOST
+                    gameFinished = true;
                     $('#gameResultModal').on('show.bs.modal', function (e) {
                         document.getElementById("modalText").innerHTML = jqXHR.responseText;
                     });
@@ -43,11 +45,12 @@ function updateTurnStatus() {
     var url = '/game?updateTurnStatus';
     $("#turnStatus").load(url, function (response, status, xhr) {
         if (xhr.status == 210) {
+            gameFinished = true;
             $('#gameResultModal').on('show.bs.modal', function (e) {
                 document.getElementById("modalText").innerHTML = 'You lost! Good luck next time!';
             });
             $("#gameResultModal").modal();
-        }else {
+        } else {
             $("#ownFieldMap").load('/game?ownFieldMap');
             if (xhr.status == 211 && hitMapDisabled) {
                 startTimer();
@@ -65,6 +68,9 @@ function startTimer() {
     timer.start();
 }
 
-setInterval(function () {
-    updateTurnStatus();
+var updateFunction = setInterval(function () {
+    if (!gameFinished)
+        updateTurnStatus();
+    else
+        clearInterval(updateFunction);
 }, 1000);

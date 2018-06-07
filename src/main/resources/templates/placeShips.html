@@ -84,7 +84,7 @@
       </div>
     </div>
     <div id="gameReady" th:fragment="gameReady" th:object="${gameReady}">
-      <div th:if="${gameReady != null}">
+      <div th:if="${gameReady}">
         <script type="text/javascript">
           window.location.href = "/game";
         </script>

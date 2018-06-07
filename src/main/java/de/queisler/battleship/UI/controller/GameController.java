@@ -97,7 +97,11 @@ public class GameController {
         Player p = getPlayerFromAuthentication();
         Game g = gameManagement.getGame(p);
 
-        if (g.determineWinner() != null) return ResponseEntity.status(210).build(); // Game lost
+        if (g.determineWinner() != null){
+            gameManagement.removeGame(g);
+
+            return ResponseEntity.status(210).build(); // Game lost
+        }
 
         if (g.getCurrentPlayer().equals(p)) return ResponseEntity.status(211).build(); // Player's turn
         else return ResponseEntity.status(212).build(); // Opponent's turn
@@ -115,7 +119,9 @@ public class GameController {
         if (r.name().startsWith("SUNK"))
             return ResponseEntity.status(213).body("You destroyed your opponent's " + g.getOpponent(p).getFleet()
                     .getShip(r.getShipType()).toString()); // DESTROYED
-        else if (r == AttackResult.LOST) return ResponseEntity.status(214).body("Congratulations! You won the game!");
+        else if (r == AttackResult.LOST){
+            return ResponseEntity.status(214).body("Congratulations! You won the game!");
+        }
         else if (r == AttackResult.HIT) return ResponseEntity.status(215).build();
         else return ResponseEntity.status(216).build(); // MISS
 

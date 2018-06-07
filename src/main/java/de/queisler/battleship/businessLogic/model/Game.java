@@ -1,16 +1,16 @@
 package de.queisler.battleship.businessLogic.model;
 
+import de.queisler.battleship.businessLogic.enums.AttackResult;
+import de.queisler.battleship.businessLogic.enums.PointStatus;
+import de.queisler.battleship.businessLogic.exceptions.GameException;
+import lombok.Getter;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
-
-import de.queisler.battleship.businessLogic.enums.AttackResult;
-import de.queisler.battleship.businessLogic.enums.PointStatus;
-import de.queisler.battleship.businessLogic.exceptions.GameException;
-import lombok.Getter;
 
 public class Game
 {
@@ -43,6 +43,7 @@ public class Game
 			throw new GameException("Dieser Spieler befindet sich bereits im Spiel!");
 
 		player.setHitMap(new FieldMap());
+		player.setFleet(new Fleet());
 		players.add(player);
 	}
 
