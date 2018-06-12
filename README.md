@@ -9,7 +9,7 @@ Check out this repo, build with maven and run it.
 ### Prerequisites
 
 - Maven
-- IDE (like Eclipse, IntelliJ)
+- IDE (like Eclipse, IntelliJ) with Lombok Plugin
 - Tomcat server
 - JDK 8 or higher
 
